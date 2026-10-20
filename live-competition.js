@@ -7,15 +7,69 @@ const storageKey='cggps_v9_comp';let sb=null,uid=null,comp=null,sub=null,refresh
 function pending(){try{return JSON.parse(localStorage.getItem('cggps_v9_pending')||'{}')}catch{return {}}}
 function setPending(v){localStorage.setItem('cggps_v9_pending',JSON.stringify(v))}
 function drawHoles(){const div=$('liveHoles');div.innerHTML='';for(let i=1;i<=9;i++){const w=document.createElement('label');w.style='font-size:12px;display:flex;align-items:center;gap:5px';w.append(document.createTextNode('H'+i));const input=document.createElement('input');input.type='number';input.min=1;input.max=25;input.step=1;input.inputMode='numeric';input.id='liveH'+i;input.style='width:68px;padding:8px';w.append(input);div.append(w)}}
-async function init(){drawHoles();$('liveJoinBtn').onclick=join;$('liveSaveBtn').onclick=save;$('liveLeaveBtn').onclick=()=>{comp=null;localStorage.removeItem(storageKey);$('liveMain').hidden=true;$('liveJoin').hidden=false;msg('Enter a name and competition code'); if(sub)sb.removeChannel(sub)};
-if(!window.supabase?.createClient){msg('Live scoring library unavailable. GPS and local scoring still work. Connect to the internet and reload.');return}
-sb=window.supabase.createClient(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true}});
-try{let {data:{session}}=await sb.auth.getSession();if(!session){if(!navigator.onLine){msg('Connect once to activate live scoring. Offline GPS still works.');return}const result=await sb.auth.signInAnonymously();if(result.error)throw result.error;session=result.data.session}uid=session.user.id;
-const old=JSON.parse(localStorage.getItem(storageKey)||'null');if(old?.id){comp=old.id;await openCompetition();}else msg('Ready to join a competition');
-}catch(e){msg('Live scoring setup required: '+e.message)} }
-async function join(){let name=$('liveName').value.trim(), code=$('liveCode').value.trim();if(name.length<2||code.length<6){msg('Enter your name and access code');return}if(!sb||!navigator.onLine){msg('Internet needed to join. Try again with reception.');return}
-$('liveJoinBtn').disabled=true;msg('Joining competition…');try{const r=await sb.rpc('join_golf_competition',{p_name:name,p_code:code});if(r.error)throw r.error;comp=r.data;localStorage.setItem(storageKey,JSON.stringify({id:comp,name}));await openCompetition();}catch(e){msg('Could not join: '+e.message)}finally{$('liveJoinBtn').disabled=false}}
-async function openCompetition(){if(!comp||!sb)return;try{const {data, error}=await sb.from('golf_competitions').select('title,active').eq('id',comp).single();if(error)throw error;$('liveTitle').textContent=data.title+(data.active?'':' · Closed');$('liveJoin').hidden=true;$('liveMain').hidden=false;msg(navigator.onLine?'Connected — shared scores enabled':'Offline — showing last available scores');await loadScores();await refresh();subscribe();await flushPending();}catch(e){msg('Could not load competition: '+e.message+' (join again if session was reset)');$('liveJoin').hidden=false;$('liveMain').hidden=true}}
+let joining=false;
+async function ensureUser(){
+  if(!sb) throw new Error('Supabase library has not loaded. Reload while online.');
+  const {data:sessionData,error:sessionError}=await sb.auth.getSession();
+  if(sessionError && !/refresh|session|token|invalid/i.test(sessionError.message||'')) throw sessionError;
+  let session=sessionData?.session;
+  if(session){
+    try{
+      const r=await sb.auth.getUser();
+      if(!r.error && r.data?.user?.id){uid=r.data.user.id;return uid}
+      if(r.error && !/refresh|token|session|user.*not.*found|invalid|jwt/i.test(r.error.message||'') && r.error.status!==401 && r.error.status!==403)throw r.error;
+    }catch(e){
+      if(!/refresh|token|session|user.*not.*found|invalid|jwt/i.test(e.message||'') && e.status!==401 && e.status!==403)throw e;
+    }
+    // The anonymous user was deleted or the refresh token was revoked.
+    // Only remove the Supabase auth session key; preserve scorecards and offline scores.
+    try{await sb.auth.signOut({scope:'local'})}catch(e){console.warn('Local sign out:',e)}
+    for(const key of Object.keys(localStorage)){
+      if(/^sb-[a-z0-9]+-auth-token$/.test(key))localStorage.removeItem(key);
+    }
+    localStorage.removeItem(storageKey);
+    comp=null;
+  }
+  if(!navigator.onLine)throw new Error('Internet is required for the first sign-in. Your offline scores are preserved.');
+  const result=await sb.auth.signInAnonymously();
+  if(result.error)throw result.error;
+  uid=result.data?.user?.id || result.data?.session?.user?.id;
+  if(!uid)throw new Error('Sign-in did not return a player ID.');
+  return uid;
+}
+async function init(){
+  drawHoles();
+  $('liveJoinBtn').onclick=join;
+  $('liveSaveBtn').onclick=save;
+  $('liveLeaveBtn').onclick=()=>{comp=null;localStorage.removeItem(storageKey);$('liveMain').hidden=true;$('liveJoin').hidden=false;$('liveJoin').style.display='flex';msg('Enter a name and competition code'); if(sub)sb.removeChannel(sub)};
+  if(!window.supabase?.createClient){msg('Live scoring library unavailable. GPS and local scoring still work. Connect to the internet and reload.');return}
+  sb=window.supabase.createClient(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true}});
+  try{
+    await ensureUser();
+    const old=JSON.parse(localStorage.getItem(storageKey)||'null');
+    if(old?.id){comp=old.id;await openCompetition()}
+    else msg('Ready to join a competition');
+  }catch(e){msg('Connection issue: '+(e.message||String(e)))}
+}
+async function join(){
+  if(joining)return;
+  const name=$('liveName').value.trim(),code=$('liveCode').value.trim();
+  if(name.length<2||code.length<6){msg('Enter a player name and a code of at least 6 characters');return}
+  if(!navigator.onLine){msg('Connect to the internet to join. Your existing scores remain saved.');return}
+  joining=true;$('liveJoinBtn').disabled=true;msg('Checking your player session…');
+  try{
+    await ensureUser();
+    msg('Joining competition…');
+    const r=await sb.rpc('join_golf_competition',{p_name:name,p_code:code});
+    if(r.error)throw r.error;
+    if(!r.data)throw new Error('The database did not return a competition ID.');
+    comp=r.data;
+    localStorage.setItem(storageKey,JSON.stringify({id:comp,name,userId:uid}));
+    await openCompetition();
+  }catch(e){msg('Could not join: '+(e.message||String(e))+' — check the competition code and retry.');}
+  finally{joining=false;$('liveJoinBtn').disabled=false}
+}
+async function openCompetition(){if(!comp||!sb)return;try{const {data, error}=await sb.from('golf_competitions').select('title,active').eq('id',comp).single();if(error)throw error;$('liveTitle').textContent=data.title+(data.active?'':' · Closed');$('liveJoin').hidden=true;$('liveJoin').style.display='none';$('liveMain').hidden=false;msg(navigator.onLine?'Connected — shared scores enabled':'Offline — showing last available scores');await loadScores();await refresh();subscribe();await flushPending();}catch(e){msg('Could not load competition: '+e.message+' (join again if session was reset)');$('liveJoin').hidden=false;$('liveJoin').style.display='flex';$('liveMain').hidden=true}}
 async function loadScores(){const {data,error}=await sb.from('golf_scores').select('hole,strokes').eq('competition_id',comp).eq('user_id',uid);if(error)throw error;for(const row of data||[])$('liveH'+row.hole).value=row.strokes;const queue=pending();const mine=queue[comp]||{};for(const [h,st] of Object.entries(mine))$('liveH'+h).value=st;}
 async function save(){if(!comp)return;const queue=pending();queue[comp]=queue[comp]||{};for(let i=1;i<=9;i++){const s=$('liveH'+i).value.trim();if(!s)continue;const n=Number(s);if(!Number.isInteger(n)||n<1||n>25){msg('Hole '+i+' must be between 1 and 25 strokes');return}queue[comp][i]=n}setPending(queue);msg('Scores saved on this device. Syncing…');await flushPending();await refresh()}
 async function flushPending(){if(!sb||!uid||!comp||!navigator.onLine)return;const q=pending(), mine=q[comp]||{};const rows=Object.entries(mine).map(([hole,strokes])=>({competition_id:comp,user_id:uid,hole:Number(hole),strokes}));if(!rows.length){$('livePending').textContent='';return}const r=await sb.from('golf_scores').upsert(rows,{onConflict:'competition_id,user_id,hole'});if(r.error){msg('Saved offline, sync pending: '+r.error.message);$('livePending').textContent=rows.length+' scores waiting to sync';return}delete q[comp];setPending(q);$('livePending').textContent='All scores synced';msg('Live scores updated')}
