@@ -1,5 +1,5 @@
-const CORE='condamine-v7-2-core',VEND='condamine-v7-2-vendors';
-const core=['./','./index.html','./boot.js','./app.js','./offline-course.jpg','./manifest.webmanifest','./apple-touch-icon.png'];
+const CORE='condamine-v9-1-core',VEND='condamine-v9-1-vendors';
+const core=['./','./index.html', './live-competition.js','./offline-course.jpg','./manifest.webmanifest','./apple-touch-icon.png'];
 const vendors=[
 'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css',
 'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js',
@@ -28,8 +28,8 @@ self.addEventListener('fetch',e=>{
  if(req.mode==='navigate'){
    e.respondWith((async()=>{try{
      const response=await fetch(req,{cache:'no-store'});
-     if(response.ok){const c=await caches.open(CORE);await c.put('./index.html',response.clone())}return response;
-   }catch(error){const c=await caches.open(CORE);return await c.match('./index.html')||await c.match('./')||Response.error()}})());return;
+     if(response.ok){const c=await caches.open(CORE);await c.put('./index.html', './live-competition.js',response.clone())}return response;
+   }catch(error){const c=await caches.open(CORE);return await c.match('./index.html', './live-competition.js')||await c.match('./')||Response.error()}})());return;
  }
  e.respondWith((async()=>{
   const c=await caches.open(CORE),hit=await c.match(req);if(hit)return hit;
