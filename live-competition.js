@@ -60,10 +60,30 @@ async function join(){
   try{
     await ensureUser();
     msg('Joining competition…');
-    const r=await sb.rpc('join_golf_competition',{p_name:name,p_code:code});
-    if(r.error)throw r.error;
-    if(!r.data)throw new Error('The database did not return a competition ID.');
-    comp=r.data;
+    // Verify the browser has a current authenticated session before the RPC.
+    let {data:{session},error:sessionError}=await sb.auth.getSession();
+    if(sessionError || !session?.access_token){
+      await ensureUser();
+      ({data:{session},error:sessionError}=await sb.auth.getSession());
+    }
+    if(sessionError || !session?.access_token)throw new Error('Player sign-in is missing. Open the app online and retry.');
+    const userCheck=await sb.auth.getUser(session.access_token);
+    if(userCheck.error || !userCheck.data?.user?.id){
+      await sb.auth.signOut({scope:'local'}).catch(()=>{});
+      await ensureUser();
+      ({data:{session},error:sessionError}=await sb.auth.getSession());
+      if(sessionError || !session?.access_token)throw new Error('Unable to restore your player session.');
+    }
+    // Explicit Authorization prevents a publishable-key-only (anon) RPC.
+    const response=await fetch(URL+'/rest/v1/rpc/join_golf_competition',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','apikey':KEY,'Authorization':'Bearer '+session.access_token},
+      body:JSON.stringify({p_name:name,p_code:code})
+    });
+    const body=await response.json().catch(()=>null);
+    if(!response.ok)throw new Error((body?.message||body?.error||'Competition join request failed')+' (HTTP '+response.status+')');
+    if(!body)throw new Error('The database did not return a competition ID.');
+    comp=body;
     localStorage.setItem(storageKey,JSON.stringify({id:comp,name,userId:uid}));
     await openCompetition();
   }catch(e){msg('Could not join: '+(e.message||String(e))+' — check the competition code and retry.');}
