@@ -1,23 +1,38 @@
-const CORE='condamine-v7-core', VEND='condamine-v7-vendors';
-const core=['./','./index.html','./offline-course.jpg','./manifest.webmanifest','./apple-touch-icon.png'];
-const vendors=['https://unpkg.com/leaflet@1.9.4/dist/leaflet.css','https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'];
-self.addEventListener('install',event=>event.waitUntil((async()=>{
-  const c=await caches.open(CORE);
-  await Promise.all(core.map(async url=>{try{await c.add(new Request(url,{cache:'reload'}))}catch(e){}}));
-  const v=await caches.open(VEND);
-  await Promise.all(vendors.map(async url=>{try{const r=await fetch(new Request(url,{mode:'no-cors',cache:'reload'}));if(r.ok||r.type==='opaque')await v.put(url,r)}catch(e){}}));
-  await self.skipWaiting();
+const CORE='condamine-v7-2-core',VEND='condamine-v7-2-vendors';
+const core=['./','./index.html','./boot.js','./app.js','./offline-course.jpg','./manifest.webmanifest','./apple-touch-icon.png'];
+const vendors=[
+'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css',
+'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js',
+'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css',
+'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js',
+'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
+'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'];
+self.addEventListener('install',e=>e.waitUntil((async()=>{
+ const c=await caches.open(CORE);
+ await Promise.all(core.map(async path=>{try{await c.add(new Request(path,{cache:'reload'}))}catch(error){console.warn('Core cache failed',path,error)}}));
+ await self.skipWaiting();
 })()));
-self.addEventListener('activate',event=>event.waitUntil((async()=>{for(const k of await caches.keys())if(k.startsWith('condamine-')&&!([CORE,VEND].includes(k)))await caches.delete(k);await self.clients.claim()})()));
-self.addEventListener('fetch',event=>{
- const u=new URL(event.request.url);
- if(u.hostname==='unpkg.com'&&u.pathname.startsWith('/leaflet@1.9.4/dist/')){
-   event.respondWith((async()=>{const c=await caches.open(VEND);const match=await c.match(event.request.url);if(match)return match;
-     const r=await fetch(event.request);if(r.ok||r.type==='opaque')c.put(event.request.url,r.clone());return r})());return;
+self.addEventListener('activate',e=>e.waitUntil((async()=>{
+ for(const k of await caches.keys())if(k.startsWith('condamine-')&&!([CORE,VEND].includes(k)))await caches.delete(k);
+ await self.clients.claim();
+})()));
+self.addEventListener('fetch',e=>{
+ const req=e.request, url=new URL(req.url);
+ if(vendors.includes(url.href)){
+   e.respondWith((async()=>{
+     const c=await caches.open(VEND),hit=await c.match(req);if(hit)return hit;
+     const r=await fetch(req);if(r.ok||r.type==='opaque')await c.put(req,r.clone());return r;
+   })());return;
  }
- if(u.origin!==self.location.origin)return; // live satellite map requests remain network-only
- if(event.request.mode==='navigate'){
-   event.respondWith((async()=>{try{const r=await fetch(event.request);const c=await caches.open(CORE);c.put('./index.html',r.clone());return r}catch(e){const c=await caches.open(CORE);return await c.match('./index.html')||await c.match('./')||Response.error()}})());return;
+ if(url.origin!==self.location.origin)return;
+ if(req.mode==='navigate'){
+   e.respondWith((async()=>{try{
+     const response=await fetch(req,{cache:'no-store'});
+     if(response.ok){const c=await caches.open(CORE);await c.put('./index.html',response.clone())}return response;
+   }catch(error){const c=await caches.open(CORE);return await c.match('./index.html')||await c.match('./')||Response.error()}})());return;
  }
- event.respondWith((async()=>{const c=await caches.open(CORE),hit=await c.match(event.request);if(hit)return hit;try{const r=await fetch(event.request);if(r.ok)c.put(event.request,r.clone());return r}catch(e){return Response.error()}})());
+ e.respondWith((async()=>{
+  const c=await caches.open(CORE),hit=await c.match(req);if(hit)return hit;
+  try{const r=await fetch(req);if(r.ok)await c.put(req,r.clone());return r}catch(error){return Response.error()}
+ })());
 });
