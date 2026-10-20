@@ -1,38 +1,84 @@
-const CORE='condamine-v9-1-core',VEND='condamine-v9-1-vendors';
-const core=['./','./index.html', './live-competition.js','./offline-course.jpg','./manifest.webmanifest','./apple-touch-icon.png'];
-const vendors=[
-'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css',
-'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js',
-'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css',
-'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js',
-'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
-'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'];
-self.addEventListener('install',e=>e.waitUntil((async()=>{
- const c=await caches.open(CORE);
- await Promise.all(core.map(async path=>{try{await c.add(new Request(path,{cache:'reload'}))}catch(error){console.warn('Core cache failed',path,error)}}));
- await self.skipWaiting();
-})()));
-self.addEventListener('activate',e=>e.waitUntil((async()=>{
- for(const k of await caches.keys())if(k.startsWith('condamine-')&&!([CORE,VEND].includes(k)))await caches.delete(k);
- await self.clients.claim();
-})()));
-self.addEventListener('fetch',e=>{
- const req=e.request, url=new URL(req.url);
- if(vendors.includes(url.href)){
-   e.respondWith((async()=>{
-     const c=await caches.open(VEND),hit=await c.match(req);if(hit)return hit;
-     const r=await fetch(req);if(r.ok||r.type==='opaque')await c.put(req,r.clone());return r;
-   })());return;
- }
- if(url.origin!==self.location.origin)return;
- if(req.mode==='navigate'){
-   e.respondWith((async()=>{try{
-     const response=await fetch(req,{cache:'no-store'});
-     if(response.ok){const c=await caches.open(CORE);await c.put('./index.html', './live-competition.js',response.clone())}return response;
-   }catch(error){const c=await caches.open(CORE);return await c.match('./index.html', './live-competition.js')||await c.match('./')||Response.error()}})());return;
- }
- e.respondWith((async()=>{
-  const c=await caches.open(CORE),hit=await c.match(req);if(hit)return hit;
-  try{const r=await fetch(req);if(r.ok)await c.put(req,r.clone());return r}catch(error){return Response.error()}
- })());
+/* Condamine Golf GPS — v9.2 service worker repair.
+   Network-first navigation; local course assets cached for offline use.
+   Does not intercept Supabase or other third-party APIs. */
+const CACHE_NAME = 'condamine-golf-v9-2-core';
+const OFFLINE_FILES = [
+  './index.html',
+  './live-competition.js',
+  './offline-course.jpg',
+  './manifest.webmanifest',
+  './apple-touch-icon.png'
+];
+const OLD_PREFIXES = ['condamine-', 'condamine-golf-'];
+
+self.addEventListener('install', event => {
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE_NAME);
+    // Do not let one missing image or icon prevent activation.
+    await Promise.all(OFFLINE_FILES.map(async file => {
+      try {
+        const response = await fetch(new Request(file, { cache: 'reload' }));
+        if (response.ok) await cache.put(file, response);
+      } catch (error) {
+        console.warn('Optional offline resource unavailable:', file, error);
+      }
+    }));
+    await self.skipWaiting();
+  })());
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil((async () => {
+    for (const name of await caches.keys()) {
+      if (name !== CACHE_NAME && OLD_PREFIXES.some(prefix => name.startsWith(prefix))) {
+        await caches.delete(name);
+      }
+    }
+    await self.clients.claim();
+  })());
+});
+
+self.addEventListener('fetch', event => {
+  const request = event.request;
+  if (request.method !== 'GET') return;
+  const url = new URL(request.url);
+
+  // Let Supabase, CDNs and live satellite providers work normally.
+  // Leaflet and imagery fallback are handled by the page itself.
+  if (url.origin !== self.location.origin) return;
+  if (!url.pathname.startsWith(new URL('./', self.registration.scope).pathname)) return;
+
+  if (request.mode === 'navigate') {
+    event.respondWith((async () => {
+      try {
+        const response = await fetch(request, { cache: 'no-store' });
+        if (response.ok) {
+          const cache = await caches.open(CACHE_NAME);
+          await cache.put('./index.html', response.clone());
+        }
+        return response;
+      } catch (error) {
+        const cache = await caches.open(CACHE_NAME);
+        return (await cache.match('./index.html')) ||
+               (await cache.match(request)) ||
+               new Response('Offline app not yet downloaded. Connect to the internet and open the golf app once.', {
+                 status: 503,
+                 headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+               });
+      }
+    })());
+    return;
+  }
+
+  event.respondWith((async () => {
+    const cache = await caches.open(CACHE_NAME);
+    // Network first for scripts and other app assets, then offline cache.
+    try {
+      const response = await fetch(request);
+      if (response.ok) await cache.put(request, response.clone());
+      return response;
+    } catch (error) {
+      return (await cache.match(request)) || Response.error();
+    }
+  })());
 });
