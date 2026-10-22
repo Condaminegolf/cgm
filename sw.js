@@ -1,7 +1,7 @@
 /* Condamine Golf GPS — v9.2 service worker repair.
    Network-first navigation; local course assets cached for offline use.
    Does not intercept Supabase or other third-party APIs. */
-const CACHE_NAME = 'condamine-golf-v12';
+const CACHE_NAME = 'condamine-golf-v13';
 const OFFLINE_FILES = [
   './index.html',
   './live-competition.js',
@@ -60,13 +60,13 @@ self.addEventListener('fetch', event => {
         const response = await fetch(request, { cache: 'no-store' });
         if (response.ok) {
           const cache = await caches.open(CACHE_NAME);
-          await cache.put('./index.html', response.clone());
+          await cache.put(url.pathname.endsWith('/admin.html') ? './admin.html' : './index.html', response.clone());
         }
         return response;
       } catch (error) {
         const cache = await caches.open(CACHE_NAME);
-        return (await cache.match('./index.html')) ||
-               (await cache.match(request)) ||
+        return (await cache.match(request)) ||
+               (await cache.match(url.pathname.endsWith('/admin.html') ? './admin.html' : './index.html')) ||
                new Response('Offline app not yet downloaded. Connect to the internet and open the golf app once.', {
                  status: 503,
                  headers: { 'Content-Type': 'text/plain; charset=utf-8' }
