@@ -43,7 +43,7 @@ button,.primary,select{border-radius:11px!important}button:focus-visible,input:f
 .v13-actions button.secondary{background:#254733;color:#f7fff2;border:1px solid #698973}
 .v13-note{font-size:11px;color:#bdd4be;line-height:1.5}
 @media(max-width:390px){#v13Advice{padding:13px}.v13-switch{width:100%}.v13-switch button{flex:1}}
-</style></head><body><header><div><strong>⛳ Condamine Golf GPS</strong><small>Player edition · v13.1 · course locked</small></div><div id="gpsQuality" aria-live="polite">GPS off</div></header><div id="fatal" role="alert"></div><div id="map" aria-label="Interactive map showing golf fairways and distance marker"></div>
+</style></head><body><header><div><strong>⛳ Condamine Golf GPS</strong><small>Player edition · v14.2 · course locked</small></div><div id="gpsQuality" aria-live="polite">GPS off</div></header><div id="fatal" role="alert"></div><div id="map" aria-label="Interactive map showing golf fairways and distance marker"></div>
 <main>
 <div class="toolbar"><label for="hole">Hole</label><select id="hole" aria-label="Choose hole"></select><button id="gps" class="primary">◎ Live GPS</button><button id="fit">View hole</button><button id="rangeToggle" class="primary" aria-pressed="false">Rangefinder</button></div>
 
@@ -54,7 +54,7 @@ button,.primary,select{border-radius:11px!important}button:focus-visible,input:f
 <div class="v13-pills"><div class="v13-pill">Distance <b id="v13Distance">—</b> m</div><div class="v13-pill">Club carry <b id="v13Carry">—</b> m</div><div class="v13-pill">Difference <b id="v13Gap">—</b> m</div></div>
 <details id="v13Advanced"><summary>Advanced · My club distances</summary><p class="v13-note">Defaults are approximate recreational-player <strong>carry distances</strong> in metres (flight before roll). Change them to your own typical carries. Saved only on this device.</p><div class="v13-editgrid" id="v13DistanceInputs"></div><div class="v13-actions"><button type="button" id="v13Save">Save my distances</button><button type="button" class="secondary" id="v13Reset">Use regular-golfer defaults</button></div><div class="v13-note" id="v13SavedStatus" role="status"></div></details>
 <p class="v13-note">Planning estimate only. Wind, elevation, lie, temperature, hazards and rollout aren't included. For a marker, this suggests a club to <em>reach the marker</em>, not the remaining shot to the green.</p></div></details>
-<div class="toolbar"><button id="tee">Use tee position</button><button id="clear">Clear marker</button><button id="basemap">Street map</button></div>
+<div class="toolbar"><button id="tee">Use tee position</button><button id="clear">Clear marker</button><label for="basemap" class="note" style="margin:0">Map layer</label><select id="basemap" aria-label="Choose map imagery"><option value="auto">Auto · Esri / Queensland</option><option value="queensland">Queensland aerial</option><option value="satellite">Satellite (Esri)</option><option value="street">Street map</option><option value="offline">Offline aerial</option></select></div>
 <section class="panel"><h2>Shot planner</h2><div class="switchrow"><label><input type="checkbox" id="rings"> 100 / 150 / 200 m green rings</label><label><input type="checkbox" id="auto" checked> Auto-select hole</label></div><p class="note">Tap to place an orange landing marker, or drag it to fine-tune. Distances show current position → marker and marker → green. Rings are measured from the saved green point.</p><div class="legend"><span><i class="dot" style="background:#d6ee8d"></i>Green</span><span><i class="dot" style="background:#70beff"></i>Tee</span><span><i class="dot" style="background:#ff8d91"></i>Hazard</span><span><i class="dot" style="background:#ffa745"></i>Target</span></div></section>
 <section class="panel"><h2>Digital scorecard · 9 holes (Par 36)</h2><div id="scoregrid" class="scoregrid"></div><div class="scorefooter"><strong id="total">Total: 0 strokes</strong><button id="newRound">New round</button><button id="export">Export scores</button></div><p class="note">Strokes are saved on this device automatically. Official pars from the Condamine Sports Club holes document. Under/over-par is calculated for holes played; blank holes are excluded. Export before clearing or changing devices.</p></section>
 <section class="panel" id="competition"><h2>Competition leaderboard</h2><p class="note">Local competition board — results are stored on this device. This is not a live leaderboard shared between phones. Import results received from other players to combine them.</p><div class="lbtoolbar"><input id="eventName" maxlength="70" aria-label="Competition name" placeholder="Competition name (e.g. Saturday Stableford)"><input id="playerName" maxlength="50" aria-label="Player name" placeholder="Player name"><button id="submitScore" class="primary">Add my scorecard</button></div><div class="lbtoolbar" style="margin-top:8px"><button id="exportBoard">Export competition JSON</button><button id="importBoard">Import results</button><input id="boardFile" type="file" accept=".json,application/json" class="hidden"><button id="resetBoard">Clear competition</button></div><div style="overflow-x:auto;margin-top:10px"><table class="lbtable"><thead><tr><th>#</th><th>Player</th><th>Holes</th><th>Strokes</th><th></th></tr></thead><tbody id="leaderBody"></tbody></table></div><p id="boardStatus" class="note">Nine completed holes required for a ranked total. No official pars or handicap scoring have been supplied.</p></section>
@@ -66,39 +66,62 @@ button,.primary,select{border-radius:11px!important}button:focus-visible,input:f
 <details><summary>Course Etiquette</summary><p>Keep the course enjoyable for everyone. Leave sand greens in good condition, rake bunkers, and respect fellow players, volunteers and course equipment.</p></details>
 <details><summary>Campdraft Arena — No Shots Over the Arena</summary><p>Do not play shots over the Campdraft Arena. For the safety of people, livestock and infrastructure, players must not attempt to hit over this area under any circumstances. Damage to campdraft arena equipment may be invoiced for the cost of repairs.</p></details>
 <p class="note">Source: Condamine Sports Club, <em>Hols.pdf</em>, page 1. For competition rulings consult the club committee.</p></section>
-<div id="message" class="status" role="status">Map ready. Tap to place a target marker.</div><details><summary class="note">GPS, accuracy and fairway notes</summary><p class="note">Location accuracy is the phone's reported horizontal accuracy in metres (approximately a confidence radius), not guaranteed rangefinder precision. Auto-hole detection checks your position against mapped fairways and uses nearest-tees/greens only within a limited range. Close or overlapping holes can be ambiguous; you can override the hole manually. Club course markers and fairway boundaries are read-only. Internet access is needed for satellite maps and the Leaflet library.</p></details>
+<div id="message" class="status" role="status">Map ready. Tap to place a target marker.</div><details><summary class="note">GPS, accuracy and fairway notes</summary><p class="note">Location accuracy is the phone's reported horizontal accuracy in metres (approximately a confidence radius), not guaranteed rangefinder precision. Auto-hole detection checks your position against mapped fairways and uses nearest-tees/greens only within a limited range. Close or overlapping holes can be ambiguous; you can override the hole manually. Club course markers and fairway boundaries are read-only. Automatic imagery uses Esri through zoom 18 and Queensland aerial at zoom 19 and above. Internet access is needed for live imagery; the supplied aerial image remains available offline.</p></details>
 </main><script id="condamine-inline-app" type="text/plain">
 'use strict';
 let COURSE={"schema":"condamine-golf-course-v2","holes":{"1":{"green":[-26.94933951105403,150.13619363307956],"tee":[-26.951209678730624,150.13801217079165],"hazards":[[-26.9511474957478,150.13661205768588],[-26.951113969046745,150.13632237911227],[-26.951008736197107,150.13625800609591],[-26.95063563712022,150.1363652944565],[-26.950788703557627,150.1367032527924],[-26.950779136911382,150.13712704181674],[-26.950645203778645,150.1374971866608],[-26.950344209495835,150.13647794723514],[-26.950066775330654,150.13657450675967],[-26.949779773751395,150.1367032527924]],"fairway":[[-26.951126093479544,150.13801810720872],[-26.95116913246582,150.1381254096753],[-26.951326941941566,150.138103949182],[-26.95150387957581,150.1365105075528],[-26.951422583940516,150.13565208781986],[-26.94998794543277,150.13585596250644],[-26.94955276814178,150.13585596250644],[-26.949332787772832,150.1358988834931],[-26.949227579618498,150.13609202793302],[-26.949218015235942,150.13622615601625],[-26.94924192619076,150.13640320508617],[-26.9494332136467,150.13647295168948],[-26.95006924210304,150.13645685631948],[-26.95116435035703,150.13620469552293],[-26.951154786138893,150.137438673889]]},"2":{"green":[-26.951859535192803,150.1349759101868],"tee":[-26.948947380954955,150.13545870780948],"hazards":[],"fairway":[[-26.94884795339274,150.13539542942013],[-26.94884795339274,150.13558857386008],[-26.949115756676353,150.13565295534002],[-26.95045476354848,150.13548127139345],[-26.951898960268988,150.13514863374692],[-26.95206155079352,150.13492329856703],[-26.951889396113167,150.13483745659377],[-26.95050258492822,150.13510571276026],[-26.949211400551984,150.13530958744684]]},"3":{"green":[-26.948650917805267,150.13398885726932],"tee":[-26.950994578442202,150.13475060462955],"hazards":[],"fairway":[[-26.951200811164597,150.13473026556468],[-26.951028655169235,150.1349770612379],[-26.95043567139421,150.1349234100046],[-26.949154050640097,150.13498779148452],[-26.94864713691636,150.13429032545156],[-26.948513234797314,150.13395768780507],[-26.948675830206888,150.13380746435178],[-26.94886711862366,150.13398987854507],[-26.94927838762033,150.13464442359137],[-26.950454799951782,150.1345585816181],[-26.95091388435955,150.13454785137145]]},"4":{"green":[-26.95108010300627,150.1343482732773],"tee":[-26.948631359227225,150.1337152719498],"hazards":[],"fairway":[[-26.9485361542817,150.13365624924543],[-26.948618441798327,150.133904081711],[-26.949880939991917,150.13361436505116],[-26.950894754059707,150.13437621256412],[-26.951172116696835,150.13450497552404],[-26.9512581946178,150.1342903705908],[-26.950990396425507,150.13397919343765],[-26.9500339691149,150.1333568391313],[-26.949326207679086,150.13339976011792]]},"5":{"green":[-26.95240943809305,150.13480424880984],"tee":[-26.951343105202376,150.13401031494143],"hazards":[],"fairway":[[-26.95125991968785,150.13398397316118],[-26.9513077407259,150.13412883149113],[-26.952359798428997,150.1349121394974],[-26.95246978571262,150.13489067900406],[-26.952479349819182,150.13465997870085],[-26.951398600642342,150.1339142265579]]},"6":{"green":[-26.951169063906637,150.13864590774804],"tee":[-26.952400581765552,150.13556599617007],"hazards":[],"fairway":[[-26.952460225852253,150.1354751198596],[-26.95247935406615,150.13560924794282],[-26.951962891150927,150.137363643272],[-26.95126470603958,150.13879076607793],[-26.951130807030744,150.13876394046127],[-26.951111678587885,150.1386405426247],[-26.95114993547031,150.13852787503475],[-26.952082442962254,150.13600090194598],[-26.952273725596488,150.13550731059954]]},"7":{"green":[-26.953059754581204,150.13448238372806],"tee":[-26.951318984505104,150.13916015625003],"hazards":[],"fairway":[[-26.95121978973291,150.13926883828523],[-26.951468458997837,150.13930102902523],[-26.9526257202804,150.13819581361906],[-26.953237820615808,150.13447241802757],[-26.953084795843683,150.134268543341],[-26.952922206795574,150.13450460876757],[-26.952166642846745,150.13768076177934],[-26.95132499602735,150.13888254940542]]},"8":{"green":[-26.95323189655276,150.1386666297913],"tee":[-26.95358619053726,150.13605415821078],"hazards":[[-26.95352879207264,150.13631701469424],[-26.953791868128782,150.13624191284183],[-26.953825350491872,150.13647794723514],[-26.95354314169154,150.13653159141543]],"fairway":[[-26.953536086069146,150.13594707861927],[-26.95370345623267,150.13592561812592],[-26.953626944188777,150.13776585542834],[-26.953263511270748,150.13881741960114],[-26.953129614637025,150.13869402176456],[-26.95331611347617,150.1374385829052]]},"9":{"green":[-26.951730427166353,150.13942837715152],"tee":[-26.953385767231175,150.1391011476517],"hazards":[[-26.95228083968539,150.1398950815201],[-26.952491302910424,150.13939619064334],[-26.952826129958236,150.1386880874634],[-26.95214690833754,150.13987898826602],[-26.951965144110805,150.13964831829074],[-26.95205124299161,150.13939619064334],[-26.952079942603923,150.13921380043033],[-26.95192209464576,150.1392459869385],[-26.951888611717113,150.13912260532382],[-26.952022543372,150.13890802860263],[-26.95224257360225,150.13873636722568],[-26.952538926706833,150.13851106166842]],"fairway":[[-26.953521787973347,150.13904797954953],[-26.953363981571442,150.13928404497605],[-26.9524506129038,150.14029805328556],[-26.95195327816007,150.14032487890222],[-26.951628096563855,150.13999760637907],[-26.95158983984381,150.13937525207268],[-26.951690263706283,150.13925185423608],[-26.951690263706283,150.13925185423608],[-26.95189111116275,150.139396712566],[-26.951991534756736,150.13978836656915],[-26.952182817545328,150.13997614588573],[-26.95241713851881,150.1398259224325],[-26.953215738992586,150.1390104236862]]}}};
 const $=id=>document.getElementById(id); const center=[-26.9505464,150.1372831];
 if(typeof L==='undefined'){$('fatal').style.display='block';$('fatal').textContent='Mapping library unavailable. Connect to the internet once and refresh to install it.';throw new Error('Leaflet unavailable')}
 const map=L.map('map',{zoomControl:true}).setView(center,17);
-// Live satellite is preferred. Licensed course image stays on the device for offline use.
-// Geo extents transcribed from the supplied Queensland Globe PDF corner coordinates.
+// Version 14.3: Esri imagery through zoom 18; Queensland at zoom 19 and above.
+// A deliberately explicit threshold; web map tiles do not expose a reliable per-location
+// 'maximum useful detail' value, so this switches at the configured Esri native zoom.
 const OFFLINE_BOUNDS=[[-26.9544444444,150.1330555556],[-26.9477777778,150.1402777778]];
 const offline=L.imageOverlay('offline-course.jpg',OFFLINE_BOUNDS,{attribution:'Offline aerial image © State of Queensland and imagery contributors; supplied with permission',interactive:false});
-const sat=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,attribution:'Imagery © Esri and contributors'});
-const street=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap contributors'});
-let mapMode='satellite',tileErrors=0, liveLoaded=false, probeTimer=null, lastLive=0;
+const qld=L.tileLayer('https://spatial-img.information.qld.gov.au/arcgis/rest/services/Basemaps/LatestStateProgram_AllUsers/ImageServer/tile/{z}/{y}/{x}',{maxZoom:20,maxNativeZoom:20,attribution:'Includes material © State of Queensland; © Planet Labs Netherlands B.V. under licence, 2026'});
+const sat=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:20,maxNativeZoom:19,attribution:'Imagery © Esri and contributors'});
+const street=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:20,maxNativeZoom:19,attribution:'© OpenStreetMap contributors'});
+const mapLayers={queensland:qld,satellite:sat,street,offline};
+const ESRI_NATIVE_MAX_ZOOM=18;
+let mapMode='offline',mapPreference='auto',tileErrors=0,liveLoaded=false,probeTimer=null;
+function preferredLayer(){return map.getZoom()>ESRI_NATIVE_MAX_ZOOM?'queensland':'satellite'}
+function mapLabel(mode){return ({queensland:'QUEENSLAND AERIAL',satellite:'ESRI SATELLITE',street:'STREET MAP',offline:'OFFLINE AERIAL'})[mode]||mode}
 function setMapMode(mode){
-  if(mode===mapMode&&map.hasLayer(mode==='satellite'?sat:mode==='street'?street:offline))return;
-  map.removeLayer(sat);map.removeLayer(street);map.removeLayer(offline);
-  mapMode=mode;
-  if(mode==='satellite'){tileErrors=0;liveLoaded=false;sat.addTo(map);}
-  else if(mode==='street')street.addTo(map);
-  else offline.addTo(map);
-  const el=document.getElementById('mapSource');if(el)el.textContent=mode==='satellite'?'LIVE SATELLITE':mode==='offline'?'OFFLINE AERIAL':'STREET MAP';
-  document.getElementById('basemap').textContent=mode==='street'?'Live satellite':mode==='offline'?'Try live map':'Street map';
+ if(!mapLayers[mode])mode='offline';
+ if(!navigator.onLine&&mode!=='offline')mode='offline';
+ if(mode===mapMode&&map.hasLayer(mapLayers[mode]))return;
+ clearTimeout(probeTimer);
+ for(const layer of Object.values(mapLayers))if(map.hasLayer(layer))map.removeLayer(layer);
+ mapMode=mode;tileErrors=0;liveLoaded=false;
+ mapLayers[mode].addTo(map);
+ const source=$('mapSource');if(source)source.textContent=mapLabel(mode)+(mapPreference==='auto'?' · AUTO':'');
+ if(mode==='queensland'||mode==='satellite'||mode==='street'){
+  const checkedMode=mode;
+  probeTimer=setTimeout(()=>{if(mapMode===checkedMode&&!liveLoaded){
+   setMapMode('offline');
+   message('Live map imagery unavailable. Using the offline course aerial.');
+  }},10000);
+ }
 }
-sat.on('tileload',()=>{liveLoaded=true;lastLive=Date.now();tileErrors=0});
-sat.on('tileerror',()=>{if(mapMode==='satellite'&&++tileErrors>=3&&!liveLoaded){setMapMode('offline');message('Live imagery unavailable. Using offline course image.')}});
-function tryLive(){if(mapMode==='satellite'||!navigator.onLine)return;setMapMode('satellite');
-  clearTimeout(probeTimer);probeTimer=setTimeout(()=>{if(mapMode==='satellite'&&!liveLoaded){setMapMode('offline');message('Offline image active — live satellite tiles not responding.')}},6500);
+function applyMapPreference(){
+ if(!navigator.onLine){setMapMode('offline');return}
+ setMapMode(mapPreference==='auto'?preferredLayer():mapPreference);
 }
-setMapMode(navigator.onLine?'satellite':'offline');
-window.addEventListener('offline',()=>{if(mapMode==='satellite')setMapMode('offline')});
-window.addEventListener('online',()=>{if(mapMode==='offline')tryLive()});
-setInterval(()=>{if(mapMode==='offline'&&navigator.onLine)tryLive()},30000);
+for(const [name,layer] of [['queensland',qld],['satellite',sat],['street',street]]){
+ layer.on('tileload',()=>{if(mapMode===name){liveLoaded=true;tileErrors=0;clearTimeout(probeTimer)}});
+ layer.on('tileerror',()=>{if(mapMode===name&&!liveLoaded&&++tileErrors>=3){
+  setMapMode('offline');
+  message('Live '+mapLabel(name)+' imagery unavailable. Using offline aerial.');
+ }});
+}
+$('basemap').value='auto';
+applyMapPreference();
+map.on('zoomend',()=>{if(mapPreference==='auto'&&navigator.onLine){
+ const next=preferredLayer();
+ if(next!==mapMode)setMapMode(next);
+}});
+window.addEventListener('offline',()=>setMapMode('offline'));
+window.addEventListener('online',()=>applyMapPreference());
 let hole=1,position=null,usingGps=false,watch=null,firstFix=true,target=null,marker=null,autoCandidate=null,autoCandidateCount=0,lastAuto=0,lastAccuracy=null;
 const fixed=L.layerGroup().addTo(map), lines=L.layerGroup().addTo(map), circles=L.layerGroup().addTo(map);
 const icon=L.divIcon({className:'',html:'<div style="width:23px;height:23px;background:#ffa745;border:3px solid #fff;border-radius:50%;box-shadow:0 2px 9px #111;"></div>',iconSize:[23,23],iconAnchor:[11,11]});
@@ -125,7 +148,7 @@ for(let i=1;i<=9;i++)$('hole').add(new Option('Hole '+i+' · Par '+[4,4,4,4,3,4,
 $('hole').onchange=()=>selectHole($('hole').value);$('gps').onclick=()=>usingGps?gpsStop():gpsStart();$('fit').onclick=fitHole;
 $('tee').onclick=()=>{if(usingGps)gpsStop();position=COURSE.holes[hole].tee;renderMeasure();message('Using Hole '+hole+' tee as the measuring position.')};
 $('clear').onclick=()=>{target=null;marker=null;renderMeasure();message('Marker removed. Tap map to add a new target.')};
-$('basemap').onclick=()=>{if(mapMode==='satellite')setMapMode('street');else tryLive()};
+$('basemap').onchange=()=>{mapPreference=$('basemap').value;applyMapPreference();message('Map layer: '+(mapPreference==='auto'?'Auto (Esri through zoom 18; Queensland at zoom 19+)':mapLabel(mapMode))+'.')};
 $('rings').onchange=renderRings;map.on('click',e=>{target=[e.latlng.lat,e.latlng.lng];renderMeasure();message('Target placed. Drag orange marker to adjust.')});
 const HOLE_PARS=[4,4,4,4,3,4,5,4,4]; const COURSE_PAR=HOLE_PARS.reduce((a,b)=>a+b,0);
 const STORE='condamine_golf_gps_v6_score';let scores=Array(9).fill(null);try{const v=JSON.parse(localStorage.getItem(STORE));if(Array.isArray(v)&&v.length===9)scores=v.map(s=>Number.isInteger(s)&&s>=1&&s<=30?s:null)}catch(e){}
