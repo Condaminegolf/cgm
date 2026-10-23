@@ -1,7 +1,7 @@
 /* Condamine Golf GPS — v9.2 service worker repair.
    Network-first navigation; local course assets cached for offline use.
    Does not intercept Supabase or other third-party APIs. */
-const CACHE_NAME = 'condamine-golf-v14-2';
+const CACHE_NAME = 'condamine-golf-v14-4';
 const OFFLINE_FILES = [
   './index.html',
   './live-competition.js',
