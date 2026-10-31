@@ -124,16 +124,19 @@ header{flex-wrap:wrap}
 #liveComp{max-width:1100px;margin:10px auto 30px!important;width:calc(100% - 24px);box-sizing:border-box}
 #liveComp .fold-body{padding:0 17px 17px}
 @media(max-width:420px){header .club-brand{max-width:60vw}.theme-control{order:3;width:100%;justify-content:flex-end}}
-</style><style id="round-sharing-css">#roundProgressPanel .fold-body{display:grid;gap:11px}.round-share-grid{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.round-share-grid label{font-size:13px;font-weight:700;flex:1;min-width:140px}.round-share-grid select{flex:1;min-width:140px}.round-share-stats{display:grid;grid-template-columns:1fr 1fr;gap:9px}.round-share-stats>div{background:var(--surface,#224533);border:1px solid #6b80674d;border-radius:12px;padding:12px}.round-share-stats small{display:block;font-size:11px;color:var(--muted,#b3cdb8)}.round-share-stats strong{display:block;margin-top:5px;font-size:clamp(18px,4.5vw,25px)}.round-share-buttons{display:flex;gap:8px;flex-wrap:wrap;margin:9px 0}.round-share-buttons button{flex:1;min-width:125px}.round-share-url{display:block;overflow-wrap:anywhere;font-size:12px;color:#e89779;margin:8px 0;padding:8px;background:#344e3955;border-radius:9px}html[data-theme=light] .round-share-url{color:#a63e29}html[data-theme=light] .round-share-stats>div{background:#eef1e8}html[data-theme=light] .round-share-stats small{color:#596d5d}</style><script>(function(){try{document.documentElement.dataset.theme=localStorage.getItem('cgm-player-theme')==='light'?'light':'dark'}catch(e){document.documentElement.dataset.theme='dark'}})();</script><style id="v146-logo-styles">.cgm-brand-row{display:flex;align-items:center;gap:12px}.cgm-logo{width:67px;height:67px;object-fit:contain;flex:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,.12))}header .cgm-brand-row .club-brand{min-width:0}@media(max-width:480px){.cgm-logo{width:52px;height:52px}.cgm-brand-row{gap:8px}header .cgm-brand-row .club-brand__title{font-size:clamp(18px,5vw,24px)!important}header .cgm-brand-row .club-brand__sub{font-size:9px!important;letter-spacing:.1em!important}}</style><style>.cgm-menu{position:fixed;right:12px;top:calc(8px + env(safe-area-inset-top));z-index:1000;width:42px;height:42px;padding:5px;border-radius:50%;border:2px solid #f45c3c;background:#193727;color:#fff}.cgm-drawer{position:fixed;z-index:1500;top:0;bottom:0;right:0;width:min(330px,88vw);padding:25px;background:var(--club-paper,#fbfaf5);color:#292d28;box-shadow:-15px 0 50px #0006;border-left:3px solid #f45c3c}.cgm-drawer a{display:block;color:#292d28;padding:15px;margin:12px 0;text-decoration:none;border:1px solid #e0dfd4;border-radius:12px}.cgm-drawer a[aria-current]{border-color:#f45c3c}.cgm-drawer p{font-size:13px}.cgm-drawer[hidden]{display:none!important}header{padding-right:58px!important}</style><style id="v153-progression-styles">.smart-progress-holes{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:4px}.smart-progress-holes span{text-align:center;padding:7px 0;font-size:12px;font-weight:800;border:1px solid rgba(125,156,129,.4);border-radius:7px;min-width:0}.smart-progress-holes .done{background:#426e50;color:#fff}.smart-progress-holes .current{background:#f45c3c;color:#fff}.smart-progress-actions{display:flex;flex-wrap:wrap;gap:9px}.smart-progress-actions button{flex:1;min-width:145px}#smartProgressPanel .fold-body{display:grid;gap:12px}html[data-theme=light] .smart-progress-holes .done{background:#356b47;color:#fff}html[data-theme=light] .smart-progress-holes .current{background:#d84d31;color:#fff}</style></head><body><header><div class="cgm-brand-row"><img class="cgm-logo" src="condamine-golf-logo.png" alt="Condamine Golf course emblem" width="67" height="67"><div class="club-brand"><span class="club-brand__eyebrow">Established 1964 · Condamine</span><strong class="club-brand__title">Condamine</strong><span class="club-brand__sub">Sports Club · Golf GPS</span><span class="club-brand__rule" aria-hidden="true"></span></div></div><button id="courseMenu" class="cgm-menu" type="button" aria-label="Choose course" aria-expanded="false">☰</button><nav id="courseDrawer" class="cgm-drawer" hidden aria-label="Course selection"><button id="courseClose" type="button">✕ Close</button><h2>Courses</h2><a href="./index.html" aria-current="page">✓ Condamine Sports Club</a><a href="./miles.html">Miles Golf Club · Guest</a><p>Miles rounds are separate from Condamine competitions and statistics.</p></nav><div id="gpsQuality" aria-live="polite">GPS off</div><div class="theme-control" role="group" aria-label="Appearance"><button type="button" id="themeDark" aria-pressed="true">🌙 Dark</button><button type="button" id="themeLight" aria-pressed="false">☀ Light</button></div></header><div id="fatal" role="alert"></div><div id="map" aria-label="Interactive map showing golf fairways and distance marker"></div>
+</style><style id="smart-hole-v154-css">
+#smartHolePanel{margin-top:16px}#smartHolePanel .smart-hole-subtitle{font-size:12px;font-weight:400;color:var(--muted,#b3cdb8)}
+.smart-hole-meta{display:flex;align-items:center;justify-content:space-between;gap:9px;flex-wrap:wrap}
+.smart-hole-meta strong{font-size:20px}.smart-hole-meta span{font-size:12px;color:var(--muted,#b3cdb8)}
+.smart-hole-steps{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:5px}
+.smart-hole-steps span{display:grid;place-items:center;min-height:32px;border-radius:8px;font-size:12px;font-weight:800;background:var(--surface,#294b35);color:var(--text,#f3f5ee);border:1px solid #78907850}
+.smart-hole-steps span.done{background:#346b4b;color:#fff}.smart-hole-steps span.current{background:#ed5f40;color:#fff;border-color:#ed5f40}
+.smart-hole-actions{display:flex;gap:8px;flex-wrap:wrap}.smart-hole-actions button{flex:1;min-width:160px}
+html[data-theme=light] .smart-hole-steps span{background:#e6eee3;color:#364139}html[data-theme=light] .smart-hole-steps span.done{background:#346b4b;color:#fff}html[data-theme=light] .smart-hole-steps span.current{background:#ed5f40;color:#fff}
+</style><style id="round-sharing-css">#roundProgressPanel .fold-body{display:grid;gap:11px}.round-share-grid{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.round-share-grid label{font-size:13px;font-weight:700;flex:1;min-width:140px}.round-share-grid select{flex:1;min-width:140px}.round-share-stats{display:grid;grid-template-columns:1fr 1fr;gap:9px}.round-share-stats>div{background:var(--surface,#224533);border:1px solid #6b80674d;border-radius:12px;padding:12px}.round-share-stats small{display:block;font-size:11px;color:var(--muted,#b3cdb8)}.round-share-stats strong{display:block;margin-top:5px;font-size:clamp(18px,4.5vw,25px)}.round-share-buttons{display:flex;gap:8px;flex-wrap:wrap;margin:9px 0}.round-share-buttons button{flex:1;min-width:125px}.round-share-url{display:block;overflow-wrap:anywhere;font-size:12px;color:#e89779;margin:8px 0;padding:8px;background:#344e3955;border-radius:9px}html[data-theme=light] .round-share-url{color:#a63e29}html[data-theme=light] .round-share-stats>div{background:#eef1e8}html[data-theme=light] .round-share-stats small{color:#596d5d}</style><script>(function(){try{document.documentElement.dataset.theme=localStorage.getItem('cgm-player-theme')==='light'?'light':'dark'}catch(e){document.documentElement.dataset.theme='dark'}})();</script><style id="v146-logo-styles">.cgm-brand-row{display:flex;align-items:center;gap:12px}.cgm-logo{width:67px;height:67px;object-fit:contain;flex:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,.12))}header .cgm-brand-row .club-brand{min-width:0}@media(max-width:480px){.cgm-logo{width:52px;height:52px}.cgm-brand-row{gap:8px}header .cgm-brand-row .club-brand__title{font-size:clamp(18px,5vw,24px)!important}header .cgm-brand-row .club-brand__sub{font-size:9px!important;letter-spacing:.1em!important}}</style><style>.cgm-menu{position:fixed;right:12px;top:calc(8px + env(safe-area-inset-top));z-index:1000;width:42px;height:42px;padding:5px;border-radius:50%;border:2px solid #f45c3c;background:#193727;color:#fff}.cgm-drawer{position:fixed;z-index:1500;top:0;bottom:0;right:0;width:min(330px,88vw);padding:25px;background:var(--club-paper,#fbfaf5);color:#292d28;box-shadow:-15px 0 50px #0006;border-left:3px solid #f45c3c}.cgm-drawer a{display:block;color:#292d28;padding:15px;margin:12px 0;text-decoration:none;border:1px solid #e0dfd4;border-radius:12px}.cgm-drawer a[aria-current]{border-color:#f45c3c}.cgm-drawer p{font-size:13px}.cgm-drawer[hidden]{display:none!important}header{padding-right:58px!important}</style></head><body><header><div class="cgm-brand-row"><img class="cgm-logo" src="condamine-golf-logo.png" alt="Condamine Golf course emblem" width="67" height="67"><div class="club-brand"><span class="club-brand__eyebrow">Established 1964 · Condamine</span><strong class="club-brand__title">Condamine</strong><span class="club-brand__sub">Sports Club · Golf GPS</span><span class="club-brand__rule" aria-hidden="true"></span></div></div><button id="courseMenu" class="cgm-menu" type="button" aria-label="Choose course" aria-expanded="false">☰</button><nav id="courseDrawer" class="cgm-drawer" hidden aria-label="Course selection"><button id="courseClose" type="button">✕ Close</button><h2>Courses</h2><a href="./index.html" aria-current="page">✓ Condamine Sports Club</a><a href="./miles.html">Miles Golf Club · Guest</a><p>Miles rounds are separate from Condamine competitions and statistics.</p></nav><div id="gpsQuality" aria-live="polite">GPS off</div><div class="theme-control" role="group" aria-label="Appearance"><button type="button" id="themeDark" aria-pressed="true">🌙 Dark</button><button type="button" id="themeLight" aria-pressed="false">☀ Light</button></div></header><div id="fatal" role="alert"></div><div id="map" aria-label="Interactive map showing golf fairways and distance marker"></div>
 <main>
 <div class="toolbar"><label for="hole">Hole</label><select id="hole" aria-label="Choose hole"></select><button id="gps" class="primary">◎ Live GPS</button><button id="fit">View hole</button><button id="rangeToggle" class="primary" aria-pressed="false">Rangefinder</button></div>
 
-<details class="panel section-fold" id="smartProgressPanel" aria-label="Smart hole progression" open><summary>⛳ Smart hole progression <span id="smartProgressBadge" style="font-size:12px;font-weight:600;opacity:.8">· Hole 1</span></summary><div class="fold-body">
-  <p id="smartProgressStatus" class="note" role="status">Start Live GPS on the tee to begin tracking your round.</p>
-  <div id="smartProgressHoles" class="smart-progress-holes" aria-label="Played holes"></div>
-  <div class="smart-progress-actions"><button id="smartProgressNext" type="button">✓ Finished this hole · Next</button><button id="smartProgressReset" type="button" class="secondary">Start a new nine</button></div>
-  <p class="note">Auto-advance requires accurate GPS fixes at the tee, near the green and at the following tee. Crossing another fairway won't switch holes. Correct the selected hole above at any time. The app must be open for reliable GPS tracking.</p>
- </div></details>
 <section id="rangePanel" class="panel hidden" aria-label="Quick rangefinder"><div class="rangebox"><div>HOLE <strong id="rHole">1</strong> · DISTANCE TO GREEN</div><div class="rangebig"><span id="rDistance">—</span><span style="font-size:20px;letter-spacing:0">m</span></div><div id="rGps" style="font-size:13px;color:#d2e6c8">Use Live GPS for your current position</div><div class="range-layout" style="margin-top:18px"><div><div class="range-sub" id="rMarker">—</div><small>To marker (m)</small></div><div><div class="range-sub" id="rRemain">—</div><small>Marker → green (m)</small></div></div></div><p class="note">Tap the map to move the planning marker. GPS readings are approximate. Switch back to the standard view for the full scorecard.</p></section>
 <div class="metrics"><div class="metric"><small>To green</small><b id="toGreen">—</b><em>metres</em></div><div class="metric"><small>To marker</small><b id="toTarget">—</b><em>metres</em></div><div class="metric"><small>Marker → green</small><b id="toRemain">—</b><em>metres</em></div></div>
 <details id="v13Advice" aria-label="Smart Caddie club recommendations"><summary class="v13-main-summary"><span>⛳ Smart Caddie <span class="v13-summary-caption">Club recommendation · tap to expand</span></span><span class="v13-expand-icon" aria-hidden="true">⌄</span></summary><div class="v13-inner"><div class="v13-top"><div><div class="v13-eyebrow">⛳ SMART CADDIE · CLUB ADVISOR</div><div style="font-size:12px;color:#d5eed0;margin-top:5px">Choose your shot target</div></div><div class="v13-switch" role="group" aria-label="Recommended club target"><button type="button" id="v13Green" aria-pressed="true">Green</button><button type="button" id="v13Marker" aria-pressed="false">Marker</button></div></div>
@@ -141,8 +144,19 @@ header{flex-wrap:wrap}
 <div class="v13-pills"><div class="v13-pill">Distance <b id="v13Distance">—</b> m</div><div class="v13-pill">Club carry <b id="v13Carry">—</b> m</div><div class="v13-pill">Difference <b id="v13Gap">—</b> m</div></div>
 <details id="v13Advanced"><summary>Advanced · My club distances</summary><p class="v13-note">Defaults are approximate recreational-player <strong>carry distances</strong> in metres (flight before roll). Change them to your own typical carries. Saved only on this device.</p><div class="v13-editgrid" id="v13DistanceInputs"></div><div class="v13-actions"><button type="button" id="v13Save">Save my distances</button><button type="button" class="secondary" id="v13Reset">Use regular-golfer defaults</button></div><div class="v13-note" id="v13SavedStatus" role="status"></div></details>
 <p class="v13-note">Planning estimate only. Wind, elevation, lie, temperature, hazards and rollout aren't included. For a marker, this suggests a club to <em>reach the marker</em>, not the remaining shot to the green.</p></div></details>
+<details class="panel section-fold" id="smartHolePanel" aria-label="Smart Hole Progression">
+  <summary>⛳ Smart Hole Progression <span class="smart-hole-subtitle">· Tee → green → next tee</span></summary>
+  <div class="fold-body">
+    <p class="note">The GPS keeps you on the same playing hole if you stray onto another fairway. After visiting the green and arriving at the next tee, it advances automatically. You can always override it.</p>
+    <div class="smart-hole-meta"><strong id="smartPlayingHole">Hole 1 of 9</strong><span id="smartPhase">Waiting at tee</span></div>
+    <div id="smartHoleSteps" class="smart-hole-steps" aria-label="Progress through nine holes"></div>
+    <p id="smartHoleStatus" class="note" role="status">Enable Live GPS near a tee to begin automatic progression.</p>
+    <div class="smart-hole-actions"><button type="button" id="smartHoleNext" class="primary">Finished this hole · Next</button><button type="button" id="smartHoleRestart">Start a new nine</button></div>
+    <p class="note">Auto-advance needs two good GPS readings near a tee, the green and the following tee. Manual hole selection remains available at the top. Share My Round uses this confirmed hole.</p>
+  </div>
+</details>
 <details class="panel section-fold" id="roundProgressPanel" aria-label="Estimated finish time and share round progress"><summary>⏱ Finish estimate · Share my round</summary><div class="fold-body">
- <p class="note">Send a private link by text so someone can see which Condamine hole you're on and roughly when you'll finish. The confirmed playing hole updates after tee → green → next tee progress, or when you change holes manually.</p>
+ <p class="note">Send a private link by text so someone can see which Condamine hole you're on and roughly when you'll finish. The confirmed hole advances after tee → green → next tee progress, or when you advance manually.</p>
  <div class="round-share-grid"><label for="roundDuration">Typical time for nine holes</label><select id="roundDuration"><option value="90">1 hr 30 min</option><option value="105">1 hr 45 min</option><option value="120">2 hours</option><option value="135" selected>2 hr 15 min</option><option value="150">2 hr 30 min</option><option value="180">3 hours</option><option value="210">3 hr 30 min</option></select></div>
  <div class="round-share-stats"><div><small>Current hole</small><strong id="roundShareHole">Hole 1 of 9</strong></div><div><small>Expected finish (QLD)</small><strong id="roundEta">—</strong></div></div>
  <button type="button" class="primary" id="roundStart">Start round & create private link</button>
@@ -150,7 +164,7 @@ header{flex-wrap:wrap}
  <p id="roundShareStatus" class="note" role="status">Not sharing.</p><p class="note">Sharing lasts up to 6 hours unless stopped. The link shows only hole number and ETA, never your exact location or scores. Updates need this app to stay open and online — iPhone background/locked-screen updates are not guaranteed. Anyone who has the link can view it while active.</p>
  </div></details>
 <div class="toolbar"><button id="tee">Use tee position</button><button id="clear">Clear marker</button><label for="basemap" class="note" style="margin:0">Map layer</label><select id="basemap" aria-label="Choose map imagery"><option value="auto">Auto · Esri / Queensland</option><option value="queensland">Queensland aerial</option><option value="satellite">Satellite (Esri)</option><option value="street">Street map</option><option value="offline">Offline aerial</option></select></div>
-<details class="panel section-fold" id="shotPlanner"><summary>Shot planner</summary><div class="fold-body"><div class="switchrow"><label><input type="checkbox" id="rings"> 100 / 150 / 200 m green rings</label><label><input type="checkbox" id="auto" checked> Smart hole auto-advance</label></div><p class="note">Tap to place an orange landing marker, or drag it to fine-tune. Distances show current position → marker and marker → green. Rings are measured from the saved green point.</p><div class="legend"><span><i class="dot" style="background:#d6ee8d"></i>Green</span><span><i class="dot" style="background:#70beff"></i>Tee</span><span><i class="dot" style="background:#ff8d91"></i>Hazard</span><span><i class="dot" style="background:#ffa745"></i>Target</span></div></div></details>
+<details class="panel section-fold" id="shotPlanner"><summary>Shot planner</summary><div class="fold-body"><div class="switchrow"><label><input type="checkbox" id="rings"> 100 / 150 / 200 m green rings</label><label><input type="checkbox" id="auto" checked> Smart hole auto-advance</label></div><p class="note">Tap to place an orange landing marker, or drag it to fine-tune. Distances show current position → marker and marker → green. Rings are measured from the saved green point.</p><p id="offlineStatus" class="note" role="status">Checking offline map resources…</p><div class="legend"><span><i class="dot" style="background:#d6ee8d"></i>Green</span><span><i class="dot" style="background:#70beff"></i>Tee</span><span><i class="dot" style="background:#ff8d91"></i>Hazard</span><span><i class="dot" style="background:#ffa745"></i>Target</span></div></div></details>
 <details class="panel section-fold" id="digitalScorecard"><summary>Digital scorecard · 9 holes (Par 36)</summary><div class="fold-body"><div id="scoregrid" class="scoregrid"></div><div class="scorefooter"><strong id="total">Total: 0 strokes</strong><button id="newRound">New round</button><button id="export">Export scores</button></div><p class="note">Strokes are saved on this device automatically. Official pars from the Condamine Sports Club holes document. Under/over-par is calculated for holes played; blank holes are excluded. Export before clearing or changing devices.</p>
 <details class="panel section-fold" id="competition"><summary>Past Rounds</summary><div class="fold-body"><p class="note">Saved local scorecards from this device. These are not live competition results. Export or import saved rounds to transfer them between devices.</p><div class="lbtoolbar"><input id="eventName" maxlength="70" aria-label="Competition name" placeholder="Round or event name (e.g. Saturday golf)"><input id="playerName" maxlength="50" aria-label="Player name" placeholder="Player name"><button id="submitScore" class="primary">Save to Past Rounds</button></div><div class="lbtoolbar" style="margin-top:8px"><button id="exportBoard">Export past rounds</button><button id="importBoard">Import past rounds</button><input id="boardFile" type="file" accept=".json,application/json" class="hidden"><button id="resetBoard">Clear past rounds</button></div><div style="overflow-x:auto;margin-top:10px"><table class="lbtable"><thead><tr><th>#</th><th>Player</th><th>Holes</th><th>Strokes</th><th></th></tr></thead><tbody id="leaderBody"></tbody></table></div><p id="boardStatus" class="note">Nine completed holes required for a ranked total. No official pars or handicap scoring have been supplied.</p></div></details></div></details>
 <details class="panel section-fold" id="clubHub"><summary>Club calendar & notices</summary><div class="fold-body"><h2>📅 Upcoming Club Competitions</h2><p class="note">Dates and entry details are published by authorised club administrators. Events require internet to refresh.</p><button type="button" id="v11Reload">Refresh club updates</button><div id="v11Events" class="note" aria-live="polite">Loading events…</div><h2>📣 Condamine Sports Club</h2><div id="v11Notices" class="note">Loading club notices…</div></div></details><details class="panel section-fold" id="playerStats"><summary>My competition statistics</summary><div class="fold-body"><h2>📈 My competition statistics</h2><p class="note">Stats belong to your current player login on this device. Anonymous accounts may be lost if browser data is cleared.</p><button id="v11StatsReload" type="button">Update my statistics</button><div id="v11Stats" class="note" aria-live="polite">Join a live competition to see your results.</div></div></details><details class="panel section-fold clubinfo" id="clubRules"><summary>Club rules & hole pars</summary><div class="fold-body"><h2>Condamine Sports Club — Course Rules</h2><p class="note">From the club's <em>Hols.pdf</em> holes and rules document. Read together with the Rules of Golf. Follow the latest directions from the club or competition committee.</p><div class="course-pars"><strong>Official hole pars</strong><div class="par-grid"><span>Hole 1<b>Par 4</b></span><span>Hole 2<b>Par 4</b></span><span>Hole 3<b>Par 4</b></span><span>Hole 4<b>Par 4</b></span><span>Hole 5<b>Par 3</b></span><span>Hole 6<b>Par 4</b></span><span>Hole 7<b>Par 5</b></span><span>Hole 8<b>Par 4</b></span><span>Hole 9<b>Par 4</b></span></div><p><strong>Total: Par 36</strong></p></div>
@@ -225,65 +239,75 @@ function distance(a,b){if(!a||!b)return null;const r=Math.PI/180,dx=(b[0]-a[0])*
 function format(d){return d==null?'—':String(Math.round(d))}
 function dot(p,color,label,r=7){L.circleMarker(p,{radius:r,color:'#fff',weight:2,fillColor:color,fillOpacity:1,interactive:false}).bindTooltip(label).addTo(fixed)}
 function polygonContains(p,poly){const lat=p[0],lng=p[1];let inside=false;for(let i=0,j=poly.length-1;i<poly.length;j=i++){const yi=poly[i][0],xi=poly[i][1],yj=poly[j][0],xj=poly[j][1];if((yi>lat)!==(yj>lat)&&lng<(xj-xi)*(lat-yi)/(yj-yi)+xi)inside=!inside}return inside}
-// Version 15.3: Confirm course progress in sequence instead of picking the nearest fairway.
-// Save only the playing-hole state locally; no GPS track coordinates are stored or shared.
-const PROGRESS_KEY='cgm-condamine-smart-hole-v15-3';
-function readSavedProgress(){try{return localStorage.getItem(PROGRESS_KEY)}catch(e){return null}}
-const progression=CGMHoleProgression.create(readSavedProgress(),()=>COURSE.holes);
-function saveProgress(){try{localStorage.setItem(PROGRESS_KEY,JSON.stringify(progression.status()))}catch(e){console.warn('Could not save hole progress',e)}}
-function drawProgress(){
- const p=progression.status(),phase={await_tee:'Find the Hole '+p.activeHole+' tee and start Live GPS.',toward_green:'Hole '+p.activeHole+' tee confirmed. Play towards its green.',await_next_tee:'Hole '+p.activeHole+' green confirmed. Walk to Hole '+(p.activeHole+1)+' tee to advance.',round_done:'All nine holes completed. Finish sharing or start a new nine.'};
- const panel=$('smartProgressPanel');if(!panel)return;
- const gpsMsg=usingGps?($('auto').checked?'':' · Auto-advance paused — toggle it on in Shot Planner.'):' · Start Live GPS for automatic tracking.';
- $('smartProgressStatus').textContent=(phase[p.phase]||'Select a hole to play.')+gpsMsg;
- $('smartProgressBadge').textContent='· Hole '+p.activeHole+' · '+p.completed.length+'/9 played';
- const chips=$('smartProgressHoles');chips.replaceChildren();for(let n=1;n<=9;n++){
-  const el=document.createElement('span');el.textContent=n;el.title='Hole '+n+(p.completed.includes(n)?' completed':n===p.activeHole?' current':' not played');
-  el.className=p.completed.includes(n)?'done':n===p.activeHole?'current':'';
-  chips.appendChild(el);
- }
- $('smartProgressNext').textContent=p.phase==='round_done'?'✓ Nine holes completed':'✓ Finished Hole '+p.activeHole+(p.activeHole===9?'':' · Next');
- $('smartProgressNext').disabled=p.phase==='round_done';
+function detectHole(p){let inside=[];for(let n=1;n<=9;n++){const h=COURSE.holes[n];if(h.fairway?.length>=3&&polygonContains(p,h.fairway))inside.push(n)}if(inside.length===1)return inside[0];if(inside.includes(hole))return hole;
+const possibilities=inside.length?inside:Array.from({length:9},(_,i)=>i+1);
+let choices=possibilities.map(n=>{const h=COURSE.holes[n];return {n,d:Math.min(distance(p,h.tee),distance(p,h.green))}}).sort((a,b)=>a.d-b.d);
+if(!inside.length && choices[0].d>65)return null;
+if(choices.length>1&&Math.abs(choices[1].d-choices[0].d)<15)return null;
+return choices[0].n}
+const SMART_STORE='cgm-condamine-hole-progress-v154';
+let smartTracker=null;
+function saveSmart(){if(!smartTracker)return;try{localStorage.setItem(SMART_STORE,JSON.stringify(smartTracker.status()))}catch(e){console.warn('Hole progression storage:',e)}}
+function renderSmart(){
+ if(!smartTracker)return;
+ const data=smartTracker.status(), playing=data.activeHole;
+ const labels={await_tee:'Waiting for tee confirmation',toward_green:'Tee confirmed · heading to green',await_next_tee:'Green reached · heading to next tee',round_done:'Nine holes completed'};
+ $('smartPlayingHole').textContent='Hole '+playing+' of 9';
+ $('smartPhase').textContent=labels[data.phase]||'Tracking';
+ const row=$('smartHoleSteps');row.replaceChildren();
+ for(let i=1;i<=9;i++){const b=document.createElement('span');b.textContent=String(i);b.className=data.completed.includes(i)?'done':i===playing?'current':'';row.appendChild(b)}
+ const completed=data.completed.length;
+ $('smartHoleStatus').textContent=data.phase==='round_done'? 'Round complete. Start a new nine to reset progression.'
+   :(!usingGps?'Live GPS is off · use Next manually or enable GPS near the tee.'
+   : !$('auto').checked?'Automatic progression is off in Shot Planner; use Next manually.'
+   : data.phase==='await_tee'?'Visit the selected hole tee to confirm you are playing it.'
+   : data.phase==='toward_green'?'Tracking Hole '+playing+'. Another fairway will not switch your hole.'
+   : 'Green visited. Head to Hole '+(playing+1)+' tee to advance.');
+ $('smartHoleNext').textContent=data.phase==='round_done'?'Nine complete':playing===9?'Finish nine holes':'Finished this hole · Next';
+ $('smartHoleNext').disabled=data.phase==='round_done';
+ saveSmart();
+}
+function initializeSmart(){
+ const recovered=(()=>{try{return localStorage.getItem(SMART_STORE)}catch(_){return null}})();
+ smartTracker=window.CGMHoleProgression.create(recovered,()=>COURSE.holes);
+ const saved=smartTracker.status();
+ if(saved.activeHole!==hole){hole=saved.activeHole;$('hole').value=String(hole);if(!usingGps)position=COURSE.holes[hole].tee;renderHole();fitHole();}
+ $('smartHoleNext').addEventListener('click',()=>{
+   const before=smartTracker.status().activeHole;
+   const next=smartTracker.nextManually();
+   selectHole(next.activeHole,true);
+   renderSmart();
+   message(before===9?'Nine holes finished.':'Confirmed Hole '+before+' complete; playing Hole '+next.activeHole+'.');
+ });
+ $('smartHoleRestart').addEventListener('click',()=>{
+   if(!confirm('Start a new nine? This resets hole progression but keeps your scorecard.'))return;
+   smartTracker.startNew(1);selectHole(1,true);renderSmart();message('New nine started on Hole 1.');
+ });
+ $('auto').addEventListener('change',renderSmart);
+ renderSmart();
 }
 function autoUpdate(){
- if(!usingGps||!$('auto').checked||!position)return;
- const result=progression.observe(position,lastAccuracy);
- if(result.changed){
-  saveProgress();drawProgress();
-  if(result.advanced){selectHole(result.to,true);message('✓ Hole '+result.from+' completed. At Hole '+result.to+' tee — auto-advanced.');}
-  else if(result.reason==='tee_confirmed'){message('✓ Hole '+hole+' tee confirmed. Next, play towards the green.');}
-  else if(result.reason==='green_confirmed'){message('✓ Hole '+hole+' green reached. Next: Hole '+(hole+1)+' tee.');}
-  else if(result.reason==='round_complete'){message('✓ Hole 9 green confirmed. Nine holes tracked.');}
+ if(!smartTracker||!usingGps||!$('auto').checked||!position||lastAccuracy==null)return;
+ const event=smartTracker.observe(position,lastAccuracy);
+ if(event.changed){
+  if(event.advanced){selectHole(event.to,true);message('GPS confirmed Hole '+event.from+' completed. Now playing Hole '+event.to+'.');}
+  else if(event.reason==='round_complete'){message('GPS confirmed green of Hole 9. Your nine holes are complete.');}
+  renderSmart();
  }
 }
 function renderRings(){circles.clearLayers();if(!$('rings').checked)return;let p=COURSE.holes[hole].green;if(!p)return;[100,150,200].forEach((m,i)=>{L.circle(p,{radius:m,color:'#effaa0',weight:1,opacity:.7,fillOpacity:0,interactive:false,dashArray:'4 6'}).bindTooltip(m+' m').addTo(circles)})}
 function renderHole(){fixed.clearLayers();const h=COURSE.holes[hole];if(h.fairway?.length>=3)L.polygon(h.fairway,{color:'#b5f18a',weight:2,fillColor:'#75bb60',fillOpacity:.22,interactive:false}).addTo(fixed);dot(h.green,'#d6ee8d','Green');dot(h.tee,'#70beff','Tee');h.hazards.forEach((p,i)=>dot(p,'#ff8d91','Hazard '+(i+1),5));renderRings();renderMeasure()}
 function renderMeasure(){lines.clearLayers();const green=COURSE.holes[hole].green;if(position){L.circleMarker(position,{radius:7,color:'#fff',weight:2,fillColor:'#16d9fe',fillOpacity:1,interactive:false}).addTo(lines);L.polyline([position,green],{color:'#d6ee8d',weight:2,opacity:.68,interactive:false}).addTo(lines)}if(target){if(!marker){marker=L.marker(target,{draggable:true,autoPan:true,icon});marker.on('dragend',()=>{const ll=marker.getLatLng();target=[ll.lat,ll.lng];renderMeasure()})}marker.setLatLng(target).addTo(lines);if(position)L.polyline([position,target],{color:'#ffa745',weight:3,dashArray:'8 5',interactive:false}).addTo(lines);L.polyline([target,green],{color:'#ffa745',weight:2,opacity:.8,interactive:false}).addTo(lines)}$('toGreen').textContent=format(distance(position,green));$('toTarget').textContent=format(distance(position,target));$('toRemain').textContent=format(distance(target,green));updateRange()}
 function fitHole(){const h=COURSE.holes[hole],points=[h.green,h.tee,...h.fairway];map.fitBounds(L.latLngBounds(points),{padding:[24,24],maxZoom:18})}
-function selectHole(n,automatic=false){
- n=Number(n);if(!Number.isInteger(n)||n<1||n>9)return;
- if(!automatic){progression.manualSelect(n);saveProgress();}
- hole=n;$('hole').value=String(n);target=null;marker=null;autoCandidate=null;autoCandidateCount=0;
- if(!usingGps)position=COURSE.holes[hole].tee;
- renderHole();fitHole();if(!automatic)message('Hole '+n+' selected manually. Tap map to plan a shot.');
- updateRange();drawProgress();document.dispatchEvent(new CustomEvent('cgm:holechange',{detail:{hole}}));
-}
-function gpsStop(){if(watch!==null&&navigator.geolocation)navigator.geolocation.clearWatch(watch);watch=null;usingGps=false;$('gps').textContent='◎ Live GPS';$('gps').classList.add('primary');$('gpsQuality').textContent='GPS off';lastAccuracy=null;updateRange();drawProgress()}
-function gpsStart(){if(!navigator.geolocation||!window.isSecureContext){message('GPS requires a secure HTTPS site and browser location permission.');return}usingGps=true;firstFix=true;drawProgress();$('gps').textContent='Stop GPS';$('gps').classList.remove('primary');$('gpsQuality').textContent='Acquiring GPS…';message('Waiting for location permission and GPS fix…');watch=navigator.geolocation.watchPosition(p=>{position=[p.coords.latitude,p.coords.longitude];lastAccuracy=p.coords.accuracy;let a=Math.round(lastAccuracy);$('gpsQuality').textContent='GPS ±'+a+' m · '+(a<=10?'good':a<=30?'moderate':'low accuracy');if(firstFix){map.setView(position,18);firstFix=false}autoUpdate();renderMeasure()},err=>{gpsStop();message('GPS error: '+err.message+'. Check site location permissions.')},{enableHighAccuracy:true,maximumAge:1500,timeout:20000})}
+function selectHole(n,automatic=false){if(smartTracker&&!automatic){smartTracker.manualSelect(Number(n));}hole=Number(n);$('hole').value=String(n);target=null;marker=null;autoCandidate=null;autoCandidateCount=0;if(!usingGps)position=COURSE.holes[hole].tee;renderHole();fitHole();if(!automatic)message('Hole '+n+' selected. Tap map to plan a shot.');updateRange();if(smartTracker)renderSmart();document.dispatchEvent(new CustomEvent('cgm:holechange',{detail:{hole,confirmed:!!smartTracker}}))}
+function gpsStop(){if(watch!==null&&navigator.geolocation)navigator.geolocation.clearWatch(watch);watch=null;usingGps=false;$('gps').textContent='◎ Live GPS';$('gps').classList.add('primary');$('gpsQuality').textContent='GPS off';lastAccuracy=null;updateRange();renderSmart()}
+function gpsStart(){if(!navigator.geolocation||!window.isSecureContext){message('GPS requires a secure HTTPS site and browser location permission.');return}usingGps=true;firstFix=true;$('gps').textContent='Stop GPS';$('gps').classList.remove('primary');$('gpsQuality').textContent='Acquiring GPS…';message('Waiting for location permission and GPS fix…');watch=navigator.geolocation.watchPosition(p=>{position=[p.coords.latitude,p.coords.longitude];lastAccuracy=p.coords.accuracy;let a=Math.round(lastAccuracy);$('gpsQuality').textContent='GPS ±'+a+' m · '+(a<=10?'good':a<=30?'moderate':'low accuracy');if(firstFix){map.setView(position,18);firstFix=false}autoUpdate();renderMeasure()},err=>{gpsStop();message('GPS error: '+err.message+'. Check site location permissions.')},{enableHighAccuracy:true,maximumAge:1500,timeout:20000})}
 for(let i=1;i<=9;i++)$('hole').add(new Option('Hole '+i+' · Par '+[4,4,4,4,3,4,5,4,4][i-1],String(i)));
-$('smartProgressNext').onclick=()=>{
- const before=progression.status();if(before.phase==='round_done')return;
- const after=progression.nextManually();saveProgress();
- if(after.activeHole!==hole)selectHole(after.activeHole,true);else drawProgress();
- message(before.activeHole===9?'✓ Nine holes completed.':'✓ Marked Hole '+before.activeHole+' played; now on Hole '+after.activeHole+'.');
-};
-$('smartProgressReset').onclick=()=>{if(!confirm('Start a new nine? This resets hole progression only, not your scorecards.'))return;
- progression.startNew(1);saveProgress();selectHole(1,true);message('New nine started. Progress reset; scorecards preserved.');};
 $('hole').onchange=()=>selectHole($('hole').value);$('gps').onclick=()=>usingGps?gpsStop():gpsStart();$('fit').onclick=fitHole;
 $('tee').onclick=()=>{if(usingGps)gpsStop();position=COURSE.holes[hole].tee;renderMeasure();message('Using Hole '+hole+' tee as the measuring position.')};
 $('clear').onclick=()=>{target=null;marker=null;renderMeasure();message('Marker removed. Tap map to add a new target.')};
 $('basemap').onchange=()=>{mapPreference=$('basemap').value;applyMapPreference();message('Map layer: '+(mapPreference==='auto'?'Auto (Esri through zoom 18; Queensland at zoom 19+)':mapLabel(mapMode))+'.')};
-$('rings').onchange=renderRings;$('auto').onchange=drawProgress;map.on('click',e=>{target=[e.latlng.lat,e.latlng.lng];renderMeasure();message('Target placed. Drag orange marker to adjust.')});
+$('rings').onchange=renderRings;map.on('click',e=>{target=[e.latlng.lat,e.latlng.lng];renderMeasure();message('Target placed. Drag orange marker to adjust.')});
 const HOLE_PARS=[4,4,4,4,3,4,5,4,4]; const COURSE_PAR=HOLE_PARS.reduce((a,b)=>a+b,0);
 const STORE='condamine_golf_gps_v6_score';let scores=Array(9).fill(null);try{const v=JSON.parse(localStorage.getItem(STORE));if(Array.isArray(v)&&v.length===9)scores=v.map(s=>Number.isInteger(s)&&s>=1&&s<=30?s:null)}catch(e){}
 function saveScores(){try{localStorage.setItem(STORE,JSON.stringify(scores))}catch(e){message('Scorecard storage unavailable. Export your scores before closing.') }}
@@ -299,8 +323,7 @@ async function loadSharedCourse(){
  try{const backup=JSON.parse(localStorage.getItem(storageKey)||'null');if(backup)apply(backup)}catch(_){}
  try{const resp=await fetch('https://ezyeexvpuuzmnjpoxqay.supabase.co/rest/v1/golf_course_layout?id=eq.1&select=layout,revision',{headers:{apikey:'sb_publishable_mRNgVa5HNIjs3-7ejM441Q_udpjxvTH'},cache:'no-store'});if(!resp.ok)throw Error('Course service HTTP '+resp.status);const rows=await resp.json();if(rows[0]?.layout&&valid(rows[0].layout)){apply(rows[0].layout);localStorage.setItem(storageKey,JSON.stringify(rows[0].layout));console.info('Shared course layout revision',rows[0].revision)}}catch(e){console.info('Using embedded/offline course',e.message)}
 }
-hole=progression.status().activeHole;$('hole').value=String(hole);
-position=COURSE.holes[hole].tee;renderHole();fitHole();drawScores();drawProgress();loadSharedCourse();
+position=COURSE.holes[1].tee;renderHole();fitHole();drawScores();initializeSmart();loadSharedCourse();
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register('./sw.js').then(async reg=>{
     const status=$('offlineStatus');status.textContent='Preparing offline resources…';
@@ -357,7 +380,133 @@ $('boardFile').addEventListener('change',async e=>{const file=e.target.files[0];
 $('resetBoard').addEventListener('click',()=>{if(confirm('Delete the local competition leaderboard? Export first to back it up.')){board={event:'',entries:[]};$('eventName').value='';saveBoard();renderBoard()}});
 renderBoard();updateRange();
 
-</script><script src="./smart-hole.js?v=15.3"></script><script>
+</script>
+<script id="smart-hole-v154-engine">
+/* Condamine Golf GPS: smart nine-hole progression v15.3.
+   GPS is advisory; requires tee -> green -> next tee evidence. No server location storage.
+   The module is pure apart from optional localStorage integration by its caller. */
+(function(root,factory){
+  const API=factory();
+  if(typeof module==='object' && module.exports)module.exports=API;
+  root.CGMHoleProgression=API;
+})(typeof window==='object'?window:globalThis,function(){
+  'use strict';
+  const VERSION=1;
+  const GPS_MAX_ACCURACY=30;
+  const TEE_RADIUS=30, GREEN_RADIUS=32, NEXT_TEE_RADIUS=27;
+  const MIN_SPACED_READINGS_MS=2500;
+  const SESSION_MAX_MS=8*60*60*1000;
+  function metres(a,b){
+    if(!a||!b)return Infinity;
+    const k=Math.PI/180, x=(b[0]-a[0])*k,y=(b[1]-a[1])*k;
+    const s=Math.sin(x/2)**2+Math.cos(a[0]*k)*Math.cos(b[0]*k)*Math.sin(y/2)**2;
+    return 12742000*Math.atan2(Math.sqrt(s),Math.sqrt(Math.max(0,1-s)));
+  }
+  function fresh(hole=1,now=Date.now()){
+    return {version:VERSION,activeHole:hole,completed:[],phase:'await_tee',
+      startedAt:now,updatedAt:now,teeSeen:false,greenSeen:false};
+  }
+  function restore(value,now=Date.now()){
+    try{
+      const v=typeof value==='string'?JSON.parse(value):value;
+      if(!v||v.version!==VERSION||!Number.isInteger(v.startedAt)||
+        v.startedAt>now+60000||now-v.startedAt>SESSION_MAX_MS||
+        !Number.isInteger(v.activeHole)||v.activeHole<1||v.activeHole>9||
+        !Array.isArray(v.completed)||!v.completed.every(n=>Number.isInteger(n)&&n>=1&&n<=9)||
+        !['await_tee','toward_green','await_next_tee','round_done'].includes(v.phase))return fresh(1,now);
+      return {...fresh(v.activeHole,v.startedAt),...v,completed:[...new Set(v.completed)],updatedAt:now};
+    }catch(_){return fresh(1,now);}
+  }
+  function create(initial,holes,options={}){
+    let state=restore(initial,options.now??Date.now());
+    let nearTee=null,nearGreen=null,nearNext=null,progressedAway=false;
+    const holeData=n=>{const layout=typeof holes==='function'?holes():holes;return layout?.[String(n)]||layout?.[n];};
+    function clearCounters(){nearTee=null;nearGreen=null;nearNext=null;progressedAway=false;}
+    function markNear(which,now){
+      let item=which==='tee'?nearTee:which==='green'?nearGreen:nearNext;
+      if(!item){item={count:1,first:now,last:now};}
+      else if(now-item.last>=MIN_SPACED_READINGS_MS){item.count++;item.last=now;}
+      if(which==='tee')nearTee=item;
+      else if(which==='green')nearGreen=item;
+      else nearNext=item;
+      return item.count>=2 && now-item.first>=MIN_SPACED_READINGS_MS;
+    }
+    function resetNear(which){if(which==='tee')nearTee=null;else if(which==='green')nearGreen=null;else nearNext=null;}
+    function observe(point,accuracy,now=Date.now()){
+      if(!Array.isArray(point)||!point.every(Number.isFinite)||!Number.isFinite(accuracy)||accuracy>GPS_MAX_ACCURACY||accuracy<0){return {changed:false,reason:'low_accuracy',state:status()};}
+      if(state.phase==='round_done')return {changed:false,reason:'round_done',state:status()};
+      const h=holeData(state.activeHole);
+      if(!h?.tee||!h?.green)return {changed:false,reason:'missing_layout',state:status()};
+      const teeDistance=metres(point,h.tee),greenDistance=metres(point,h.green);
+      const holeLength=metres(h.tee,h.green);
+      if(state.phase==='await_tee'){
+        if(teeDistance<=TEE_RADIUS){
+          if(markNear('tee',now)){
+            state.teeSeen=true;state.phase='toward_green';state.updatedAt=now;
+            clearCounters();return {changed:true,reason:'tee_confirmed',state:status()};
+          }
+        }else resetNear('tee');
+        return {changed:false,reason:'await_tee',state:status()};
+      }
+      if(state.phase==='toward_green'){
+        // It must have moved away from the starting tee and substantially toward the green.
+        if(teeDistance>=Math.min(55,holeLength*.25) && greenDistance<holeLength-20)progressedAway=true;
+        if(progressedAway && greenDistance<=GREEN_RADIUS){
+          if(markNear('green',now)){
+            state.greenSeen=true;state.phase=state.activeHole===9?'round_done':'await_next_tee';
+            if(state.activeHole===9&&!state.completed.includes(9))state.completed.push(9);
+            state.updatedAt=now;clearCounters();
+            return {changed:true,reason:state.activeHole===9?'round_complete':'green_confirmed',state:status()};
+          }
+        }else resetNear('green');
+        return {changed:false,reason:'toward_green',state:status()};
+      }
+      if(state.phase==='await_next_tee'){
+        const next=state.activeHole+1,nh=holeData(next);
+        if(!nh?.tee)return {changed:false,reason:'missing_next_tee',state:status()};
+        const nextD=metres(point,nh.tee),between=metres(h.green,nh.tee);
+        const leftGreen=greenDistance>=Math.min(14,between*.5);
+        // For holes whose green and next tee are close, ensure the position is
+        // closer to the next tee than the previous green (not just inside both geofences).
+        if(nextD<=NEXT_TEE_RADIUS && leftGreen && nextD<greenDistance){
+          if(markNear('next',now)){
+            const finished=state.activeHole;
+            if(!state.completed.includes(finished))state.completed.push(finished);
+            state.activeHole=next;state.phase='toward_green';state.teeSeen=true;
+            state.greenSeen=false;state.updatedAt=now;clearCounters();
+            return {changed:true,advanced:true,from:finished,to:next,reason:'next_tee_confirmed',state:status()};
+          }
+        }else resetNear('next');
+        return {changed:false,reason:'await_next_tee',state:status()};
+      }
+      return {changed:false,reason:'waiting',state:status()};
+    }
+    function manualSelect(n,now=Date.now()){
+      n=Number(n);
+      if(!Number.isInteger(n)||n<1||n>9)return status();
+      if(n!==state.activeHole){
+        // Selecting an earlier hole makes that hole and later holes playable again.
+        if(n<state.activeHole||state.completed.includes(n))state.completed=state.completed.filter(x=>x<n);
+        state.activeHole=n;state.phase='await_tee';state.teeSeen=false;state.greenSeen=false;
+        state.updatedAt=now;clearCounters();
+      }
+      return status();
+    }
+    function nextManually(now=Date.now()){
+      const previous=state.activeHole;
+      if(!state.completed.includes(previous))state.completed.push(previous);
+      if(previous===9){state.phase='round_done';state.greenSeen=true;}
+      else {state.activeHole=previous+1;state.phase='await_tee';state.teeSeen=false;state.greenSeen=false;}
+      state.updatedAt=now;clearCounters();return status();
+    }
+    function startNew(n=1,now=Date.now()){state=fresh(n,now);clearCounters();return status();}
+    function status(){return {...state,completed:[...state.completed].sort((a,b)=>a-b)};}
+    return {observe,manualSelect,nextManually,startNew,status};
+  }
+  return {create,restore,fresh,metres,CONSTANTS:{TEE_RADIUS,GREEN_RADIUS,NEXT_TEE_RADIUS,GPS_MAX_ACCURACY}};
+});
+
+</script><script>
 /* Condamine Golf GPS bootstrap: try CDN alternatives and retain cached files. */
 (function(){
  const sources=[
@@ -405,7 +554,145 @@ renderBoard();updateRange();
 </div>
 </div></details>
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script defer src="live-competition.js?v=12"></script><script defer src="round-progress.js?v=15.2"></script><script defer src="club-v11.js?v=12"></script><script id="v13-advisor-code">
+<script defer src="live-competition.js?v=12"></script><script id="round-sharing-v154-inline">
+/* Condamine Golf GPS V15.4 — opt-in, read-only live round progress links.
+   No precise GPS coordinates or scorecard details are uploaded. */
+(() => {
+  'use strict';
+  const ENDPOINT='https://ezyeexvpuuzmnjpoxqay.supabase.co';
+  const KEY='sb_publishable_mRNgVa5HNIjs3-7ejM441Q_udpjxvTH';
+  const STORE='cgm-condamine-share-v1';
+  const $=id=>document.getElementById(id);
+  const state={record:null,client:null,busy:false,networkError:false,lastSync:0,prevHole:null,timer:null};
+  function say(t){$('roundShareStatus').textContent=t;}
+  function clock(iso){if(!iso)return '—';return new Intl.DateTimeFormat('en-AU',{hour:'numeric',minute:'2-digit',hour12:true,timeZone:'Australia/Brisbane'}).format(new Date(iso));}
+  function selectedHole(){let n=Number($('hole')?.value||1);return Number.isInteger(n)&&n>=1&&n<=9?n:1;}
+  function getMinutes(){let n=Number($('roundDuration').value);return Number.isInteger(n)&&n>=60&&n<=360?n:135;}
+  function shareUrl(){return new URL('round.html?id='+encodeURIComponent(state.record.id),document.baseURI).href;}
+  function save(){try{if(state.record)localStorage.setItem(STORE,JSON.stringify(state.record));else localStorage.removeItem(STORE);}catch(e){console.warn('Round progress storage:',e)}}
+  function hydrate(){try{const r=JSON.parse(localStorage.getItem(STORE)||'null');if(r&&/^[0-9a-f-]{36}$/i.test(r.id)&&Date.now()<Date.parse(r.expiresAt)&&!r.finished){state.record=r;state.prevHole=r.lastHole||1;$('roundDuration').value=String(r.minutes||135)}}catch(e){console.info('No saved round sharing session')}}
+  function eta(record){
+    const now=Date.now(),per=record.minutes/9;
+    const elapsedCurrent=Math.max(0,(now-Date.parse(record.enteredAt||record.startedAt))/60000);
+    const remaining=(10-record.lastHole)*per;
+    return new Date(now+Math.max(1,remaining-Math.min(per*.95,elapsedCurrent))*60000).toISOString();
+  }
+  function show(){
+    const r=state.record,enabled=!!r&&!r.finished;
+    $('roundStart').hidden=enabled;
+    $('roundActions').hidden=!enabled;
+    $('roundShareHole').textContent='Hole '+selectedHole()+' of 9';
+    if(enabled){$('roundEta').textContent=clock(eta(r));$('roundShareLink').textContent=shareUrl();$('roundShareLink').href=shareUrl();$('roundShareLink').hidden=false;}
+    else {$('roundEta').textContent=clock(new Date(Date.now()+(10-selectedHole())*(getMinutes()/9)*60000).toISOString());$('roundShareLink').hidden=true;}
+    if(!enabled && !state.networkError)say('Not sharing. Start a round to create a private link.');
+  }
+  async function client(){
+    if(!window.supabase?.createClient){
+      const sources=['https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js','https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js'];
+      for(const source of sources){
+        try{await new Promise((resolve,reject)=>{const js=document.createElement('script');js.src=source;js.onload=resolve;js.onerror=()=>reject(new Error('SDK unavailable'));document.head.appendChild(js);});if(window.supabase?.createClient)break;}catch(e){console.warn('Supabase script:',e.message)}
+      }
+    }
+    if(!window.supabase?.createClient)throw new Error('Live sharing library could not load. Connect to the internet and refresh.');
+    if(!state.client)state.client=window.supabase.createClient(ENDPOINT,KEY,{auth:{persistSession:true,autoRefreshToken:true}});
+    return state.client;
+  }
+  async function signedInClient(){
+    const c=await client();let {data:{session},error}=await c.auth.getSession();
+    if(error)throw error;
+    if(!session){const r=await c.auth.signInAnonymously();if(r.error)throw r.error;session=r.data.session;}
+    if(!session?.user?.id)throw new Error('Unable to start your private player session. Try again online.');
+    return {c,uid:session.user.id};
+  }
+  function id(){return crypto.randomUUID();}
+  async function start(){
+    if(state.busy)return;
+    if(!navigator.onLine){say('Connect to the internet to start live sharing.');return;}
+    state.busy=true;$('roundStart').disabled=true;say('Creating private progress link…');
+    try{
+      const {c,uid}=await signedInClient();const now=new Date();
+      const r={id:id(),startedAt:now.toISOString(),enteredAt:now.toISOString(),lastHole:selectedHole(),minutes:getMinutes(),expiresAt:new Date(now.getTime()+6*3600000).toISOString(),finished:false};
+      const {error}=await c.from('golf_round_shares').insert({share_id:r.id,owner_id:uid,started_at:r.startedAt,current_hole:r.lastHole,planned_minutes:r.minutes,eta_at:eta(r),updated_at:now.toISOString(),expires_at:r.expiresAt,is_active:true});
+      if(error)throw error;
+      state.record=r;state.prevHole=r.lastHole;state.lastSync=Date.now();state.networkError=false;save();show();
+      say('✓ Sharing is on. Use “Share by text” to send the private link. Updates while this app is open and online.');
+    }catch(e){state.networkError=true;say('Could not start sharing: '+(e.message||e));}
+    finally{state.busy=false;$('roundStart').disabled=false;}
+  }
+  function syncHole(){
+    if(!state.record)return false;const hole=selectedHole();
+    if(state.record.lastHole!==hole){state.record.lastHole=hole;state.record.enteredAt=new Date().toISOString();state.prevHole=hole;save();return true;}return false;
+  }
+  async function sync(force=false){
+    const r=state.record;if(!r||r.finished||state.busy)return;
+    const changed=syncHole();show();
+    if(!navigator.onLine){say('Offline: round progress is saved on this phone. The shared link will show the last online update.');return;}
+    if(Date.now()>=Date.parse(r.expiresAt)){state.record=null;save();state.networkError=true;show();say('The private link has expired after 6 hours. Start another round to share again.');return;}
+    if(!force&&!changed&&Date.now()-state.lastSync<90000)return;
+    state.busy=true;
+    try{
+      const {c}=await signedInClient();
+      const now=new Date().toISOString();
+      const {error}=await c.from('golf_round_shares').update({current_hole:r.lastHole,planned_minutes:r.minutes,eta_at:eta(r),updated_at:now}).eq('share_id',r.id).select('share_id').single();
+      if(error)throw error;
+      state.lastSync=Date.now();state.networkError=false;
+      say('✓ Hole '+r.lastHole+' shared · ETA '+clock(eta(r))+' · last synced '+clock(now));
+    }catch(e){state.networkError=true;say('Progress saved on phone; link may be outdated: '+(e.message||e));}
+    finally{state.busy=false;}
+  }
+  async function finish(){
+    if(!state.record||state.busy)return;if(!navigator.onLine){say('Connect to the internet to mark the round finished on the shared link.');return;}
+    state.busy=true;
+    try{
+      const {c}=await signedInClient();const now=new Date().toISOString();
+      const {error}=await c.from('golf_round_shares').update({ended_at:now,current_hole:selectedHole(),updated_at:now}).eq('share_id',state.record.id).select('share_id').single();
+      if(error)throw error;
+      state.record.finished=true;save();state.record=null;save();state.networkError=true;show();say('✓ Round marked finished. The link will show that you have finished until it expires.');
+    }catch(e){say('Could not finish sharing: '+(e.message||e));}
+    finally{state.busy=false;}
+  }
+  async function stop(){
+    if(!state.record||state.busy)return;
+    if(!navigator.onLine){say('Cannot revoke the link while offline. Connect to internet and tap Stop sharing. It expires automatically after six hours.');return;}
+    state.busy=true;
+    try{
+      const {c}=await signedInClient();
+      const {error}=await c.from('golf_round_shares').update({is_active:false,updated_at:new Date().toISOString()}).eq('share_id',state.record.id).select('share_id').single();
+      if(error)throw error;state.record=null;save();state.networkError=true;show();say('✓ Sharing stopped. The link no longer displays your progress.');
+    }catch(e){say('Could not revoke the link: '+(e.message||e));}
+    finally{state.busy=false;}
+  }
+  function shareText(){return `I'm playing golf at Condamine. I'm on hole ${selectedHole()} of 9, and I expect to finish around ${clock(eta(state.record))} (Brisbane time). See my round progress: ${shareUrl()}\nUpdates while my golf app is open and online.`;}
+  async function share(){
+    if(!state.record){say('Start sharing first to create a link.');return;}
+    const text=shareText();
+    if(navigator.share){try{await navigator.share({title:'Condamine golf · Round progress',text});return;}catch(e){if(e.name==='AbortError')return;}}
+    try{await navigator.clipboard.writeText(text);say('Message copied. Paste it into Messages and send.');}
+    catch(e){say('Copy the link above and paste it into a text message.');}
+  }
+  async function copy(){if(!state.record)return;try{await navigator.clipboard.writeText(shareUrl());say('Private progress link copied.');}catch(e){say('Press and hold the link above to copy it.')}}
+  function init(){
+    if(!$('roundProgressPanel'))return;
+    try{hydrate();show();}catch(err){say('Sharing setup error: '+(err.message||err));console.error(err);}
+    $('roundStart').addEventListener('click',start);
+    $('roundShare').addEventListener('click',share);
+    $('roundCopy').addEventListener('click',copy);
+    $('roundSync').addEventListener('click',()=>sync(true));
+    $('roundFinish').addEventListener('click',finish);
+    $('roundStop').addEventListener('click',stop);
+    $('hole').addEventListener('change',()=>{if(state.record)sync(true);else show();});
+    document.addEventListener('cgm:holechange',()=>{if(state.record)sync(true);else show();});
+    $('roundProgressPanel').addEventListener('toggle',show);
+    $('roundDuration').addEventListener('change',()=>{if(state.record){state.record.minutes=getMinutes();save();sync(true)}else show();});
+    state.timer=setInterval(()=>{if(!state.record)return;const changed=syncHole();show();if(document.visibilityState==='visible')sync(changed);},15000);
+    window.addEventListener('online',()=>sync(true));
+    document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')sync(true)});
+    if(state.record){say('Sharing restored on this phone. Tap Share by text or Sync now.');sync(true);}
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+
+</script><script defer src="club-v11.js?v=12"></script><script id="v13-advisor-code">
 (()=>{'use strict';
 const DEFAULT=[['Driver',195],['3 Wood',180],['5 Wood',165],['Hybrid',155],['5 Iron',145],['6 Iron',135],['7 Iron',125],['8 Iron',115],['9 Iron',105],['Pitching Wedge',95],['Gap Wedge',80],['Sand Wedge',65],['Lob Wedge',50]];
 const KEY='condamine_gps_my_carry_v13';let custom=null;let aim='green';
