@@ -1,11 +1,14 @@
 /* Condamine Golf GPS — v9.2 service worker repair.
    Network-first navigation; local course assets cached for offline use.
    Does not intercept Supabase or other third-party APIs. */
-const CACHE_NAME = 'condamine-golf-v15-5-panel-order';
+const CACHE_NAME = 'condamine-golf-v15-6-chinchilla';
 const OFFLINE_FILES = [
   './index.html',
   './miles.html',
   './miles.js',
+  './chinchilla.html',
+  './chinchilla.js',
+  './admin-chinchilla.js',
   './round.html',
   './round-progress.js',
   './smart-hole.js',
@@ -70,14 +73,14 @@ self.addEventListener('fetch', event => {
         const response = await fetch(request, { cache: 'no-store' });
         if (response.ok) {
           const cache = await caches.open(CACHE_NAME);
-          const page = url.pathname.endsWith('/round.html') ? './round.html' : url.pathname.endsWith('/miles.html') ? './miles.html' : url.pathname.endsWith('/admin.html') ? './admin.html' : './index.html';
+          const page = url.pathname.endsWith('/round.html') ? './round.html' : url.pathname.endsWith('/miles.html') ? './miles.html' : url.pathname.endsWith('/chinchilla.html') ? './chinchilla.html' : url.pathname.endsWith('/admin.html') ? './admin.html' : './index.html';
           await cache.put(page, response.clone());
         }
         return response;
       } catch (error) {
         const cache = await caches.open(CACHE_NAME);
         return (await cache.match(request)) ||
-               (await cache.match(url.pathname.endsWith('/round.html') ? './round.html' : url.pathname.endsWith('/miles.html') ? './miles.html' : url.pathname.endsWith('/admin.html') ? './admin.html' : './index.html')) ||
+               (await cache.match(url.pathname.endsWith('/round.html') ? './round.html' : url.pathname.endsWith('/miles.html') ? './miles.html' : url.pathname.endsWith('/chinchilla.html') ? './chinchilla.html' : url.pathname.endsWith('/admin.html') ? './admin.html' : './index.html')) ||
                new Response('Offline app not yet downloaded. Connect to the internet and open the golf app once.', {
                  status: 503,
                  headers: { 'Content-Type': 'text/plain; charset=utf-8' }
